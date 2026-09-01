@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💃 ليالي الرقص</title>
+    <title>✨ ليالي الرقص | تعارف وتعليم ✨</title>
     <style>
         * {
             margin: 0;
@@ -12,134 +12,354 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            min-height: 100vh;
-            background: #1a0a0a url('https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?w=1920&q=80') center/cover no-repeat fixed;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            background-color: #1a0a0a;
             color: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
         }
 
+        /* ===== الخلفية المتحركة – راقصات وإيقاع ===== */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.55) saturate(1.2);
+        }
+
+        /* ===== طبقة تظليل بنفسجية دافئة ===== */
         .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(255, 0, 100, 0.25), transparent 60%),
+                        radial-gradient(circle at 80% 70%, rgba(180, 0, 255, 0.3), transparent 70%),
+                        linear-gradient(135deg, rgba(20, 0, 30, 0.75) 0%, rgba(40, 0, 40, 0.55) 100%);
+            z-index: -1;
         }
 
-        .content {
-            position: relative;
-            z-index: 1;
+        /* ===== حاوية رئيسية مع مرونة ===== */
+        .container {
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            width: 100%;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
         }
 
+        /* ===== شريط علوي ===== */
+        .top-bar {
+            position: absolute;
+            top: 20px;
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            letter-spacing: 1px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .brand {
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ffb6c1, #ff4d6d, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(255, 0, 100, 0.6);
+        }
+
+        .live-badge {
+            background: rgba(255, 0, 80, 0.7);
+            backdrop-filter: blur(6px);
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 20px rgba(255, 0, 80, 0.7);
+        }
+
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border-radius: 50%;
+            animation: livePulse 1.5s infinite;
+        }
+
+        /* ===== العنوان والسطر ===== */
         .title {
-            font-size: 4rem;
+            font-size: 5rem;
             font-weight: 900;
-            color: #ff4d6d;
-            margin-bottom: 10px;
-            text-shadow: 0 0 30px rgba(255, 77, 109, 0.7);
-            text-align: center;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff0f0, #ffccd5, #e0b0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 0, 150, 0.5);
+            letter-spacing: 3px;
+            animation: fadeInDown 1.2s ease-out;
         }
 
         .subtitle {
-            font-size: 1.5rem;
-            color: #ffb6c1;
-            margin-bottom: 40px;
-            text-align: center;
-            text-shadow: 0 0 15px rgba(255, 0, 102, 0.5);
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            color: rgba(255, 230, 240, 0.95);
+            text-shadow: 0 0 15px #ff0066;
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+            background: rgba(0,0,0,0.3);
+            padding: 10px 30px;
+            border-radius: 50px;
+            backdrop-filter: blur(2px);
         }
 
-        .buttons-container {
+        /* ===== زر أساسي ===== */
+        .cta-btn {
+            display: inline-block;
+            padding: 20px 70px;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #fff;
+            background: linear-gradient(45deg, #ff1a5c, #b300ff);
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 40px rgba(200, 0, 120, 0.7);
+            letter-spacing: 3px;
+            position: relative;
+            overflow: hidden;
+            animation: pulseGlow 2.2s infinite;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 200, 220, 0.6);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-6px) scale(1.06);
+            box-shadow: 0 25px 60px #ff2b7a, 0 0 30px #ff99cc;
+            background: linear-gradient(45deg, #b300ff, #ff1a5c);
+        }
+
+        .cta-btn:active {
+            transform: translateY(2px) scale(0.97);
+        }
+
+        .cta-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(transparent, rgba(255,255,255,0.25), transparent);
+            transform: rotate(45deg);
+            animation: shineMove 2.8s infinite;
+        }
+
+        /* ===== منطقة الإعلانات الإغرائية ===== */
+        .teaser-banner {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            max-width: 900px;
-            width: 100%;
+            gap: 18px;
+            margin-top: 20px;
+            animation: fadeInUp 1s ease-out 0.5s both;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 18px 40px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-            background: linear-gradient(45deg, #ff1a5c, #b300ff);
-            border: 2px solid rgba(255, 200, 220, 0.6);
-            border-radius: 50px;
+        .ad-card {
+            background: rgba(20, 5, 15, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 25px;
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
             cursor: pointer;
-            text-decoration: none;
-            transition: all 0.4s;
-            box-shadow: 0 10px 35px rgba(255, 26, 92, 0.5);
-            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 80, 150, 0.5);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
-        .btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 50px rgba(255, 26, 92, 0.8);
+        .ad-card:hover {
+            background: rgba(255, 20, 100, 0.3);
+            border-color: #ff6b9d;
+            transform: scale(1.08);
+            box-shadow: 0 15px 35px #ff2a7a;
+        }
+
+        .ad-icon {
+            font-size: 2rem;
+            filter: drop-shadow(0 0 10px #ff0066);
+        }
+
+        .ad-text {
+            font-size: 1.1rem;
+            color: #ffe6f0;
+        }
+
+        .ad-card.special {
+            background: linear-gradient(145deg, #3a0a20, #1f0010);
+            border: 2px solid #ffa0c0;
+        }
+
+        /* ===== النص السفلي ===== */
+        .footer-note {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            letter-spacing: 2px;
+            color: #ffc0d0;
+            text-shadow: 0 0 8px black;
+        }
+
+        /* ===== الحركات ===== */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 15px 40px rgba(200,0,120,0.7), 0 0 0 0 rgba(255,0,102,0.5); }
+            70% { box-shadow: 0 15px 40px rgba(200,0,120,0.7), 0 0 0 25px rgba(255,0,102,0); }
+            100% { box-shadow: 0 15px 40px rgba(200,0,120,0.7), 0 0 0 0 rgba(255,0,102,0); }
+        }
+        @keyframes shineMove {
+            0% { transform: rotate(45deg) translateX(-100%); }
+            100% { transform: rotate(45deg) translateX(100%); }
+        }
+        @keyframes livePulse {
+            0%,100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.4); }
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 3rem; }
+            .subtitle { font-size: 1.2rem; }
+            .cta-btn { padding: 15px 40px; font-size: 1.4rem; }
+            .ad-card { padding: 8px 15px; }
+            .brand { font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="overlay"></div>
-
-    <div class="content">
-        <h1 class="title" id="mainTitle">ليالي الرقص</h1>
-        <p class="subtitle" id="mainSubtitle">🔥 تعارف · دروس خاصة · إيقاع لا يتوقف 🔥</p>
-        
-        <div class="buttons-container" id="buttonsContainer"></div>
+    <!-- ===== خلفية فيديو راقصات ===== -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <!-- فيديو راقصات (مثال من w3schools مؤقتًا - استبدله بفيديو راقصين/راقصات) -->
+            <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+            <!-- بديل: يمكن استخدام رابط لفيديو راقصات حقيقي -->
+            <source src="https://cdn.pixabay.com/video/2021/08/20/86050-591436158_large.mp4" type="video/mp4">
+            متصفحك لا يدعم الفيديو.
+        </video>
     </div>
 
-    <script src="buttons-data.js"></script>
+    <!-- طبقة تظليل وإغراء -->
+    <div class="overlay"></div>
+
+    <!-- الشريط العلوي -->
+    <div class="top-bar">
+        <div class="brand">💃 رقص وتعارف</div>
+        <div class="live-badge"><span class="live-dot"></span> جلسات حية الآن</div>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container">
+        <h1 class="title">ليالي الرقص</h1>
+        <p class="subtitle">🔥 تعارف · دروس خاصة · إيقاع لا يتوقف 🔥</p>
+
+        <!-- زر رئيسي -->
+        <a href="#" class="cta-btn" id="mainCta">⬇ انضم للعالم السري</a>
+
+        <!-- إعلانات إغرائية عند الضغط تحول للرابط -->
+        <div class="teaser-banner">
+            <div class="ad-card special" data-link="https://enjoysex.top/lp/00004PPC">
+                <span class="ad-icon">💋</span>
+                <span class="ad-text">راقصات مباشر</span>
+            </div>
+            <div class="ad-card" data-link="https://enjoysex.top/lp/00004PPC">
+                <span class="ad-icon">🎵</span>
+                <span class="ad-text">تعلم السالسا</span>
+            </div>
+            <div class="ad-card" data-link="https://enjoysex.top/lp/00004PPC">
+                <span class="ad-icon">❤️‍🔥</span>
+                <span class="ad-text">ليالي تعارف</span>
+            </div>
+            <div class="ad-card" data-link="https://enjoysex.top/lp/00004PPC">
+                <span class="ad-icon">✨</span>
+                <span class="ad-text">عروض خاصة</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-note">اضغط أي إعلان للانضمام الفوري</div>
+
     <script>
-        // استخدام البيانات من الملف الخارجي
-        function loadSite() {
-            // تحميل الإعدادات
-            if (typeof SITE_DATA !== 'undefined') {
-                document.getElementById('mainTitle').textContent = SITE_DATA.settings.siteTitle;
-                document.getElementById('mainSubtitle').textContent = SITE_DATA.settings.siteSubtitle;
-                
-                // عرض الأزرار
-                const container = document.getElementById('buttonsContainer');
-                container.innerHTML = '';
-                
-                SITE_DATA.buttons.filter(btn => btn.active).forEach(btn => {
-                    const btnEl = document.createElement('a');
-                    btnEl.className = 'btn';
-                    btnEl.href = btn.link;
-                    btnEl.target = '_blank';
-                    btnEl.textContent = (btn.icon ? btn.icon + ' ' : '') + btn.text;
-                    container.appendChild(btnEl);
-                });
-            } else {
-                // استخدام localStorage كاحتياطي
-                const buttons = JSON.parse(localStorage.getItem('danceSiteButtons') || '[]');
-                const container = document.getElementById('buttonsContainer');
-                container.innerHTML = '';
-                
-                buttons.filter(btn => btn.active).forEach(btn => {
-                    const btnEl = document.createElement('a');
-                    btnEl.className = 'btn';
-                    btnEl.href = btn.link;
-                    btnEl.target = '_blank';
-                    btnEl.textContent = (btn.icon ? btn.icon + ' ' : '') + btn.text;
-                    container.appendChild(btnEl);
-                });
-            }
-        }
-        
-        loadSite();
+        // الرابط الأساسي
+        const MAIN_LINK = "https://enjoysex.top/lp/00004PPC";
+
+        // تحديث الزر الرئيسي
+        document.getElementById('mainCta').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open(MAIN_LINK, '_blank');
+        });
+
+        // جميع البطاقات الإعلانية تنقل إلى الرابط
+        const adCards = document.querySelectorAll('.ad-card');
+        adCards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                const link = this.getAttribute('data-link') || MAIN_LINK;
+                window.open(link, '_blank');
+            });
+        });
+
+        // تأثير تفاعلي للزر الرئيسي عند التحويم (تغيير النص)
+        const mainBtn = document.getElementById('mainCta');
+        mainBtn.addEventListener('mouseenter', () => {
+            mainBtn.textContent = '🚀 ابدأ الآن';
+        });
+        mainBtn.addEventListener('mouseleave', () => {
+            mainBtn.textContent = '⬇ انضم للعالم السري';
+        });
+
+        // وميض إضافي عند تحميل الصفحة
+        window.addEventListener('load', () => {
+            document.querySelector('.title').style.animation = 'fadeInDown 1.2s ease-out';
+        });
     </script>
 </body>
 </html>
