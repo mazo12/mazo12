@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>تحميل التطبيق | واجهة حديثة</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل التطبيق | واجهة ساحرة</title>
     <style>
         /* ===== إعادة تعيين الأنماط ===== */
         * {
@@ -20,7 +20,7 @@
             background-color: #0a0a0a;
         }
 
-        /* ===== حاوية الخلفية الجديدة (فيديو راقصات) ===== */
+        /* ===== حاوية الفيديو ===== */
         .video-background {
             position: fixed;
             top: 0;
@@ -43,7 +43,7 @@
             object-fit: cover;
         }
 
-        /* ===== طبقة التظليل ===== */
+        /* ===== طبقة التظليل (عدلنا الشفافية قليلاً لإبراز جمال الخلفية) ===== */
         .overlay {
             position: fixed;
             top: 0;
@@ -52,9 +52,9 @@
             height: 100%;
             background: linear-gradient(
                 135deg,
-                rgba(0, 0, 0, 0.7) 0%,
-                rgba(0, 0, 0, 0.5) 50%,
-                rgba(0, 0, 0, 0.7) 100%
+                rgba(20, 0, 20, 0.75) 0%,
+                rgba(40, 0, 40, 0.55) 50%,
+                rgba(10, 0, 15, 0.8) 100%
             );
             z-index: -1;
         }
@@ -78,17 +78,18 @@
             font-size: 4rem;
             font-weight: 800;
             margin-bottom: 1rem;
-            text-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.6), 0 0 80px rgba(255, 100, 150, 0.4);
             letter-spacing: 2px;
             animation: fadeInDown 1s ease-out;
         }
 
         .subtitle {
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 240, 245, 0.95);
             font-size: 1.5rem;
             margin-bottom: 3rem;
             font-weight: 300;
             letter-spacing: 1px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
             animation: fadeInUp 1s ease-out 0.3s both;
         }
 
@@ -133,7 +134,7 @@
             height: 200%;
             background: linear-gradient(
                 transparent,
-                rgba(255, 255, 255, 0.2),
+                rgba(255, 255, 255, 0.25),
                 transparent
             );
             transform: rotate(45deg);
@@ -150,7 +151,8 @@
             font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: 3px;
-            opacity: 0.8;
+            opacity: 0.9;
+            text-shadow: 0 0 20px rgba(255, 200, 255, 0.8);
             animation: fadeIn 1s ease-out;
         }
 
@@ -158,7 +160,7 @@
         .footer-text {
             position: absolute;
             bottom: 30px;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.7);
             font-size: 1rem;
             letter-spacing: 1px;
             animation: fadeIn 1s ease-out 0.6s both;
@@ -166,141 +168,96 @@
 
         /* ===== الحركات ===== */
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-
         @keyframes pulse {
-            0% {
-                box-shadow: 0 10px 40px rgba(255, 75, 43, 0.5), 0 0 0 0 rgba(255, 75, 43, 0.4);
-            }
-            70% {
-                box-shadow: 0 10px 40px rgba(255, 75, 43, 0.5), 0 0 0 30px rgba(255, 75, 43, 0);
-            }
-            100% {
-                box-shadow: 0 10px 40px rgba(255, 75, 43, 0.5), 0 0 0 0 rgba(255, 75, 43, 0);
-            }
+            0% { box-shadow: 0 10px 40px rgba(255, 75, 43, 0.5), 0 0 0 0 rgba(255, 75, 43, 0.5); }
+            70% { box-shadow: 0 10px 40px rgba(255, 75, 43, 0.5), 0 0 0 30px rgba(255, 75, 43, 0); }
+            100% { box-shadow: 0 10px 40px rgba(255, 75, 43, 0.5), 0 0 0 0 rgba(255, 75, 43, 0); }
         }
-
         @keyframes shine {
-            0% {
-                transform: rotate(45deg) translateX(-100%);
-            }
-            100% {
-                transform: rotate(45deg) translateX(100%);
-            }
+            0% { transform: rotate(45deg) translateX(-100%); }
+            100% { transform: rotate(45deg) translateX(100%); }
         }
 
         /* ===== استجابة للشاشات الصغيرة ===== */
         @media (max-width: 768px) {
-            .title {
-                font-size: 2.5rem;
-            }
-            .subtitle {
-                font-size: 1.2rem;
-                margin-bottom: 2rem;
-            }
-            .download-btn {
-                padding: 15px 40px;
-                font-size: 1.4rem;
-            }
-            .logo {
-                font-size: 1.2rem;
-                top: 20px;
-                right: 20px;
-            }
+            .title { font-size: 2.5rem; }
+            .subtitle { font-size: 1.2rem; margin-bottom: 2rem; }
+            .download-btn { padding: 15px 40px; font-size: 1.4rem; }
+            .logo { font-size: 1.2rem; top: 20px; right: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== خلفية فيديو الراقصات (تعمل وتتحرك) ===== -->
+    <!-- ===== خلفية الفيديو: امرأة جميلة ترقص (جودة عالية) ===== -->
     <div class="video-background">
         <video autoplay muted loop playsinline>
-            <!-- فيديو راقصات عالي الجودة يعمل بشكل ممتاز -->
-            <source src="https://videos.pexels.com/video-files/3764539/3764539-uhd_2560_1440_30fps.mp4" type="video/mp4">
-            <!-- فيديو احتياطي آخر (راقصات) -->
-            <source src="https://videos.pexels.com/video-files/5952423/5952423-uhd_2560_1440_30fps.mp4" type="video/mp4">
+            <!-- فيديو راقصة أنيقة بجودة عالية من مصدر مفتوح -->
+            <source src="https://cdn.coverr.co/videos/coverr-a-woman-dancing-in-a-studio-5244/1080p.mp4" type="video/mp4">
+            <!-- مصدر احتياطي إضافي إذا تعذر الأول -->
+            <source src="https://videos.pexels.com/video-files/3129671/3129671-hd_1920_1080_25fps.mp4" type="video/mp4">
             متصفحك لا يدعم تشغيل الفيديو.
         </video>
     </div>
 
-    <!-- ===== طبقة التظليل ===== -->
+    <!-- ===== طبقة تظليل دافئة تناسب الأجواء ===== -->
     <div class="overlay"></div>
 
     <!-- ===== الشعار ===== -->
     <div class="logo">
-        ✦ تطبيق الدردشة العالمي
+        ✦ سحر الأناقة
     </div>
 
     <!-- ===== المحتوى ===== -->
     <div class="container">
-        <h1 class="title"> تطبيق التعارف</h1>
-        <p class="subtitle">انضم إلينا الآن واكتشف تجربة فريدة من نوعها</p>
-
+        <h1 class="title">✨ تطبيق التعارف ✨</h1>
+        <p class="subtitle">انضم إلى عالم من السحر والجمال.. تجربة لا تُنسى</p>
+        
         <!-- ===== زر التحميل ===== -->
-        <a href="https://enjoysex.top/lp/00004PPC" class="download-btn" id="downloadBtn">
+        <a href="#" class="download-btn" id="downloadBtn">
             ⬇ زيارة الموقع
         </a>
     </div>
 
     <!-- ===== نص في الأسفل ===== -->
     <div class="footer-text">
-        <!-- تم إبقاؤه فارغاً كما كان -->
+        جميع الحقوق محفوظة © 2025
     </div>
 
     <!-- ===== جافاسكربت ===== -->
     <script>
-        // ===== ضع رابط التحميل الخاص بك هنا =====
-        const DOWNLOAD_LINK = "https://enjoysex.top/lp/00004PPC"; // ← غيّر هذا الرابط
+        // ===== رابط التحميل الفعلي =====
+        const DOWNLOAD_LINK = "https://enjoysex.top/lp/00004PPC"; 
 
-        // تحديث رابط الزر تلقائياً
         document.getElementById('downloadBtn').addEventListener('click', function(e) {
             e.preventDefault();
             
-            // التحقق من أن الرابط ليس فارغاً
             if (DOWNLOAD_LINK === "ضع_رابط_التحميل_هنا") {
                 alert("⚠️ الرجاء وضع رابط التحميل في الكود أولاً");
                 return;
             }
             
-            // فتح الرابط في نافذة جديدة
             window.open(DOWNLOAD_LINK, '_blank');
         });
 
-        // تأثير إضافي: تغيير النص عند التحويم
+        // تأثير إضافي عند التحويم
         const btn = document.getElementById('downloadBtn');
         btn.addEventListener('mouseenter', function() {
-            this.textContent = '🚀 ابدأ الآن';
+            this.textContent = '🚀 ابدأ الرحلة الآن';
         });
         btn.addEventListener('mouseleave', function() {
-            this.textContent = '⬇ تحميل التطبيق';
+            this.textContent = '⬇ زيارة الموقع';
         });
     </script>
 </body>
