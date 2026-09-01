@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎛️ لوحة التحكم | إدارة الموقع</title>
+    <style>
+        :root {
+            --primary: #ff1a5c;
+            --secondary: #b300ff;
+            --accent: #ff6b9d;
+            --dark: #0a0a0a;
+            --surface: #1a1a2e;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 26, 92, 0.3);
+            --success: #00c853;
+            --danger: #ff1744;
+            --warning: #ffa726;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+            background: var(--dark);
+            color: #fff;
+            min-height: 100vh;
+            padding: 30px;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .admin-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 26, 92, 0.1), rgba(179, 0, 255, 0.1));
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 26, 92, 0.1), transparent, rgba(179, 0, 255, 0.1), transparent);
+            animation: rotateBg 10s linear infinite;
+        }
+
+        @keyframes rotateBg {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .admin-header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffb6c1, #ff4d6d, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .admin-header p {
+            color: #ccc;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== الأقسام ===== */
+        .section {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #ffb6c1;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title .icon {
+            font-size: 2rem;
+        }
+
+        /* ===== إعدادات الخلفية ===== */
+        .background-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .option-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .option-card:hover {
+            border-color: var(--primary);
+            background: rgba(255, 26, 92, 0.05);
+        }
+
+        .option-card.selected {
+            border-color: var(--primary);
+            background: rgba(255, 26, 92, 0.1);
+            box-shadow: 0 0 30px rgba(255, 26, 92, 0.3);
+        }
+
+        .option-card .option-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .option-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .option-card p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .url-input-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .url-input {
+            flex: 1;
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .url-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(255, 26, 92, 0.3);
+        }
+
+        .upload-btn {
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .upload-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        /* ===== إعدادات النصوص ===== */
+        .text-settings {
+            display: grid;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: #ffccd5;
+        }
+
+        .text-input {
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(255, 26, 92, 0.3);
+        }
+
+        /* ===== إدارة الأزرار ===== */
+        .add-button-form {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 1px dashed var(--border);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 15px;
+            align-items: end;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-field label {
+            font-weight: 600;
+            color: #ffccd5;
+            font-size: 0.9rem;
+        }
+
+        .add-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--success), #00e676);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .add-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 25px rgba(0, 200, 83, 0.5);
+        }
+
+        .buttons-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .button-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .button-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 5px 25px rgba(255, 26, 92, 0.2);
+        }
+
+        .button-preview {
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: center;
+            border-radius: 30px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: 2px solid rgba(255, 200, 220, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .button-preview:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(255, 26, 92, 0.4);
+        }
+
+        .button-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .clicks-count {
+            color: #ffb6c1;
+            font-weight: 600;
+        }
+
+        .status-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: rgba(0, 200, 83, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-inactive {
+            background: rgba(255, 23, 68, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .button-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn-small {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 70px;
+            font-size: 0.9rem;
+        }
+
+        .btn-edit {
+            background: var(--warning);
+            color: #fff;
+        }
+
+        .btn-delete {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        .btn-toggle {
+            background: #666;
+            color: #fff;
+        }
+
+        .btn-save {
+            background: var(--success);
+            color: #fff;
+        }
+
+        .btn-cancel {
+            background: #666;
+            color: #fff;
+        }
+
+        .action-btn-small:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===== إحصائيات ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffb6c1, #ff4d6d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: #ccc;
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* ===== أزرار عامة ===== */
+        .save-all-btn {
+            padding: 20px 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 15px;
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(200, 0, 120, 0.5);
+            display: block;
+            margin: 30px auto;
+            width: fit-content;
+        }
+
+        .save-all-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 26, 92, 0.7);
+        }
+
+        /* ===== رسالة تنبيه ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success);
+            color: #fff;
+            padding: 20px 40px;
+            border-radius: 15px;
+            font-weight: 700;
+            box-shadow: 0 10px 40px rgba(0, 200, 83, 0.6);
+            animation: slideUp 0.5s ease-out;
+            z-index: 2000;
+            display: none;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* ===== استجابة ===== */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            .admin-header h1 {
+                font-size: 2rem;
+            }
+            .background-options {
+                grid-template-columns: 1fr;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .url-input-group {
+                flex-direction: column;
+            }
+            .admin-container {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-container">
+        <!-- رأس الصفحة -->
+        <div class="admin-header">
+            <h1>🎛️ لوحة التحكم</h1>
+            <p>إدارة كاملة للموقع - الخلفية، النصوص، والأزرار</p>
+        </div>
+
+        <!-- الإحصائيات -->
+        <div class="stats-grid" id="statsGrid">
+            <!-- تملأ ديناميكياً -->
+        </div>
+
+        <!-- إعدادات الخلفية -->
+        <div class="section">
+            <div class="section-title">
+                <span class="icon">🖼️</span>
+                إعدادات الخلفية
+            </div>
+            
+            <div class="background-options">
+                <div class="option-card" id="imageOption" onclick="selectBackgroundType('image')">
+                    <div class="option-icon">🖼️</div>
+                    <h3>صورة</h3>
+                    <p>استخدام صورة كخلفية</p>
+                </div>
+                <div class="option-card" id="videoOption" onclick="selectBackgroundType('video')">
+                    <div class="option-icon">🎬</div>
+                    <h3>فيديو</h3>
+                    <p>استخدام فيديو كخلفية</p>
+                </div>
+            </div>
+
+            <div class="url-input-group">
+                <input type="text" class="url-input" id="backgroundUrl" placeholder="أدخل رابط الصورة أو الفيديو هنا...">
+                <button class="upload-btn" onclick="applyBackground()">تطبيق الخلفية</button>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 10px;">
+                <h4 style="color: #ffccd5; margin-bottom: 10px;">💡 نصائح:</h4>
+                <ul style="color: #aaa; padding-right: 20px; line-height: 1.8;">
+                    <li>للصور: استخدم روابط مباشرة تنتهي بـ .jpg, .png, .webp</li>
+                    <li>للفيديو: استخدم روابط مباشرة تنتهي بـ .mp4, .webm</li>
+                    <li>يمكنك رفع ملفاتك على مواقع الاستضافة المجانية</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- إعدادات النصوص -->
+        <div class="section">
+            <div class="section-title">
+                <span class="icon">📝</span>
+                إعدادات النصوص
+            </div>
+            
+            <div class="text-settings">
+                <div class="input-group">
+                    <label>العنوان الرئيسي</label>
+                    <input type="text" class="text-input" id="siteTitle" placeholder="أدخل العنوان الرئيسي">
+                </div>
+                <div class="input-group">
+                    <label>العنوان الفرعي</label>
+                    <input type="text" class="text-input" id="siteSubtitle" placeholder="أدخل العنوان الفرعي">
+                </div>
+            </div>
+        </div>
+
+        <!-- إدارة الأزرار -->
+        <div class="section">
+            <div class="section-title">
+                <span class="icon">🔘</span>
+                إدارة الأزرار
+            </div>
+
+            <!-- إضافة زر جديد -->
+            <div class="add-button-form">
+                <h3 style="margin-bottom: 20px; color: #ffb6c1;">➕ إضافة زر جديد</h3>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label>نص الزر</label>
+                        <input type="text" class="text-input" id="newBtnText" placeholder="مثال: انضم الآن">
+                    </div>
+                    <div class="form-field">
+                        <label>الأيقونة (إيموجي)</label>
+                        <input type="text" class="text-input" id="newBtnIcon" placeholder="🔥">
+                    </div>
+                    <div class="form-field">
+                        <label>الرابط</label>
+                        <input type="text" class="text-input" id="newBtnLink" placeholder="https://...">
+                    </div>
+                    <button class="add-btn" onclick="addNewButton()">إضافة</button>
+                </div>
+            </div>
+
+            <!-- قائمة الأزرار -->
+            <div class="buttons-list" id="buttonsList">
+                <!-- تملأ ديناميكياً -->
+            </div>
+        </div>
+
+        <!-- زر حفظ الكل -->
+        <button class="save-all-btn" onclick="saveAllSettings()">💾 حفظ جميع التغييرات</button>
+    </div>
+
+    <!-- رسالة تنبيه -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ===== البيانات =====
+        let settings = {
+            backgroundType: 'image',
+            backgroundUrl: 'https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?w=1920&q=80',
+            siteTitle: 'ليالي الرقص',
+            siteSubtitle: '🔥 تعارف · دروس خاصة · إيقاع لا يتوقف 🔥'
+        };
+
+        let buttons = [];
+        let editingId = null;
+
+        // ===== تحميل البيانات =====
+        function loadAll() {
+            // تحميل الإعدادات
+            const savedSettings = localStorage.getItem('siteSettings');
+            if (savedSettings) {
+                settings = JSON.parse(savedSettings);
+            }
+            
+            // تحميل الأزرار
+            const savedButtons = localStorage.getItem('siteButtons');
+            if (savedButtons) {
+                buttons = JSON.parse(savedButtons);
+            } else {
+                // أزرار افتراضية
+                buttons = [
+                    { id: 1, text: 'انضم للعالم السري', icon: '⬇', link: 'https://enjoysex.top/lp/00004PPC', active: true, clicks: 0 },
+                    { id: 2, text: 'راقصات مباشر', icon: '💋', link: 'https://enjoysex.top/lp/00004PPC', active: true, clicks: 0 },
+                    { id: 3, text: 'تعلم السالسا', icon: '🎵', link: 'https://enjoysex.top/lp/00004PPC', active: true, clicks: 0 },
+                    { id: 4, text: 'ليالي تعارف', icon: '❤️‍🔥', link: 'https://enjoysex.top/lp/00004PPC', active: true, clicks: 0 },
+                    { id: 5, text: 'عروض خاصة', icon: '✨', link: 'https://enjoysex.top/lp/00004PPC', active: true, clicks: 0 }
+                ];
+            }
+            
+            // تطبيق البيانات على الواجهة
+            applySettingsToUI();
+            renderStats();
+            renderButtonsList();
+        }
+
+        // ===== تطبيق الإعدادات على الواجهة =====
+        function applySettingsToUI() {
+            document.getElementById('backgroundUrl').value = settings.backgroundUrl;
+            document.getElementById('siteTitle').value = settings.siteTitle;
+            document.getElementById('siteSubtitle').value = settings.siteSubtitle;
+            selectBackgroundType(settings.backgroundType);
+        }
+
+        // ===== اختيار نوع الخلفية =====
+        function selectBackgroundType(type) {
+            settings.backgroundType = type;
+            
+            // تحديث التحديد البصري
+            document.getElementById('imageOption').classList.toggle('selected', type === 'image');
+            document.getElementById('videoOption').classList.toggle('selected', type === 'video');
+        }
+
+        // ===== تطبيق الخلفية =====
+        function applyBackground() {
+            const url = document.getElementById('backgroundUrl').value.trim();
+            if (!url) {
+                showToast('⚠️ الرجاء إدخال رابط الخلفية');
+                return;
+            }
+            
+            settings.backgroundUrl = url;
+            showToast('✅ تم تطبيق الخلفية');
+        }
+
+        // ===== إضافة زر =====
+        function addNewButton() {
+            const text = document.getElementById('newBtnText').value.trim();
+            const icon = document.getElementById('newBtnIcon').value.trim();
+            const link = document.getElementById('newBtnLink').value.trim();
+            
+            if (!text || !link) {
+                showToast('⚠️ الرجاء إدخال نص الزر والرابط');
+                return;
+            }
+            
+            buttons.push({
+                id: Date.now(),
+                text,
+                icon: icon || '🔥',
+                link,
+                active: true,
+                clicks: 0
+            });
+            
+            // تنظيف الحقول
+            document.getElementById('newBtnText').value = '';
+            document.getElementById('newBtnIcon').value = '';
+            document.getElementById('newBtnLink').value = '';
+            
+            renderButtonsList();
+            renderStats();
+            showToast('✅ تم إضافة الزر');
+        }
+
+        // ===== عرض قائمة الأزرار =====
+        function renderButtonsList() {
+            const container = document.getElementById('buttonsList');
+            container.innerHTML = '';
+            
+            buttons.forEach(btn => {
+                const card = document.createElement('div');
+                card.className = 'button-card';
+                
+                if (editingId === btn.id) {
+                    // وضع التعديل
+                    card.innerHTML = `
+                        <div class="form-field" style="margin-bottom: 10px;">
+                            <label>نص الزر</label>
+                            <input type="text" class="text-input" id="editText-${btn.id}" value="${btn.text}">
+                        </div>
+                        <div class="form-field" style="margin-bottom: 10px;">
+                            <label>الأيقونة</label>
+                            <input type="text" class="text-input" id="editIcon-${btn.id}" value="${btn.icon || ''}">
+                        </div>
+                        <div class="form-field" style="margin-bottom: 15px;">
+                            <label>الرابط</label>
+                            <input type="text" class="text-input" id="editLink-${btn.id}" value="${btn.link}">
+                        </div>
+                        <div class="button-actions">
+                            <button class="action-btn-small btn-save" onclick="saveEdit(${btn.id})">💾 حفظ</button>
+                            <button class="action-btn-small btn-cancel" onclick="cancelEdit()">❌ إلغاء</button>
+                        </div>
+                    `;
+                } else {
+                    // وضع العرض
+                    card.innerHTML = `
+                        <div class="button-preview">
+                            ${btn.icon ? btn.icon + ' ' : ''}${btn.text}
+                        </div>
+                        <div class="button-info">
+                            <span class="clicks-count">👆 ${btn.clicks || 0} نقرة</span>
+                            <span class="status-badge ${btn.active ? 'status-active' : 'status-inactive'}">
+                                ${btn.active ? 'نشط' : 'معطل'}
+                            </span>
+                        </div>
+                        <div class="button-actions">
+                            <button class="action-btn-small btn-edit" onclick="startEdit(${btn.id})">✏️ تعديل</button>
+                            <button class="action-btn-small btn-toggle" onclick="toggleButton(${btn.id})">
+                                ${btn.active ? '⏸️ تعطيل' : '▶️ تفعيل'}
+                            </button>
+                            <button class="action-btn-small btn-delete" onclick="deleteButton(${btn.id})">🗑️ حذف</button>
+                        </div>
+                    `;
+                }
+                
+                container.appendChild(card);
+            });
+        }
+
+        // ===== بدء التعديل =====
+        function startEdit(id) {
+            editingId = id;
+            renderButtonsList();
+        }
+
+        // ===== حفظ التعديل =====
+        function saveEdit(id) {
+            const text = document.getElementById(`editText-${id}`).value.trim();
+            const icon = document.getElementById(`editIcon-${id}`).value.trim();
+            const link = document.getElementById(`editLink-${id}`).value.trim();
+            
+            if (!text || !link) {
+                showToast('⚠️ الرجاء إدخال نص الزر والرابط');
+                return;
+            }
+            
+            const btn = buttons.find(b => b.id === id);
+            if (btn) {
+                btn.text = text;
+                btn.icon = icon || '🔥';
+                btn.link = link;
+                editingId = null;
+                renderButtonsList();
+                showToast('✅ تم حفظ التعديلات');
+            }
+        }
+
+        // ===== إلغاء التعديل =====
+        function cancelEdit() {
+            editingId = null;
+            renderButtonsList();
+        }
+
+        // ===== حذف زر =====
+        function deleteButton(id) {
+            if (confirm('هل أنت متأكد من حذف هذا الزر؟')) {
+                buttons = buttons.filter(b => b.id !== id);
+                renderButtonsList();
+                renderStats();
+                showToast('🗑️ تم حذف الزر');
+            }
+        }
+
+        // ===== تفعيل/تعطيل زر =====
+        function toggleButton(id) {
+            const btn = buttons.find(b => b.id === id);
+            if (btn) {
+                btn.active = !btn.active;
+                renderButtonsList();
+                renderStats();
+                showToast(btn.active ? '✅ تم تفعيل الزر' : '⏸️ تم تعطيل الزر');
+            }
+        }
+
+        // ===== عرض الإحصائيات =====
+        function renderStats() {
+            const total = buttons.length;
+            const active = buttons.filter(b => b.active).length;
+            const totalClicks = buttons.reduce((sum, b) => sum + (b.clicks || 0), 0);
+            
+            document.getElementById('statsGrid').innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-value">${total}</div>
+                    <div class="stat-label">إجمالي الأزرار</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${active}</div>
+                    <div class="stat-label">أزرار نشطة</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${totalClicks}</div>
+                    <div class="stat-label">إجمالي النقرات</div>
+                </div>
+            `;
+        }
+
+        // ===== حفظ جميع الإعدادات =====
+        function saveAllSettings() {
+            // حفظ النصوص
+            settings.siteTitle = document.getElementById('siteTitle').value.trim() || 'ليالي الرقص';
+            settings.siteSubtitle = document.getElementById('siteSubtitle').value.trim() || '🔥 تعارف · دروس خاصة · إيقاع لا يتوقف 🔥';
+            
+            // حفظ في localStorage
+            localStorage.setItem('siteSettings', JSON.stringify(settings));
+            localStorage.setItem('siteButtons', JSON.stringify(buttons));
+            
+            showToast('✅ تم حفظ جميع التغييرات بنجاح');
+        }
+
+        // ===== عرض رسالة =====
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+
+        // ===== التهيئة =====
+        loadAll();
+
+        // حفظ تلقائي عند تغيير الخلفية
+        document.getElementById('backgroundUrl').addEventListener('change', () => {
+            settings.backgroundUrl = document.getElementById('backgroundUrl').value;
+        });
+    </script>
+</body>
+</html>
