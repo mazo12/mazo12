@@ -20,7 +20,7 @@
             color: #fff;
         }
 
-        /* ===== الخلفية المتحركة – راقصات وإيقاع ===== */
+        /* ===== الخلفية ===== */
         .video-background {
             position: fixed;
             top: 0;
@@ -33,25 +33,15 @@
 
         .video-background video,
         .video-background img {
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            filter: brightness(0.55) saturate(1.2);
-        }
-
-        .video-background img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
-        /* ===== طبقة تظليل بنفسجية دافئة ===== */
+        /* ===== طبقة تظليل ===== */
         .overlay {
             position: fixed;
             top: 0;
@@ -64,7 +54,7 @@
             z-index: -1;
         }
 
-        /* ===== حاوية رئيسية مع مرونة ===== */
+        /* ===== حاوية رئيسية ===== */
         .container {
             display: flex;
             flex-direction: column;
@@ -119,7 +109,7 @@
             animation: livePulse 1.5s infinite;
         }
 
-        /* ===== العنوان والسطر ===== */
+        /* ===== العنوان ===== */
         .title {
             font-size: 5rem;
             font-weight: 900;
@@ -129,7 +119,6 @@
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 30px rgba(255, 0, 150, 0.5);
             letter-spacing: 3px;
-            animation: fadeInDown 1.2s ease-out;
             cursor: default;
             user-select: none;
         }
@@ -141,7 +130,6 @@
             color: rgba(255, 230, 240, 0.95);
             text-shadow: 0 0 15px #ff0066;
             letter-spacing: 2px;
-            animation: fadeInUp 1s ease-out 0.2s both;
             background: rgba(0,0,0,0.3);
             padding: 10px 30px;
             border-radius: 50px;
@@ -160,11 +148,9 @@
             border-radius: 60px;
             cursor: pointer;
             text-decoration: none;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s;
             box-shadow: 0 15px 40px rgba(200, 0, 120, 0.7);
             letter-spacing: 3px;
-            position: relative;
-            overflow: hidden;
             animation: pulseGlow 2.2s infinite;
             margin-bottom: 25px;
             border: 1px solid rgba(255, 200, 220, 0.6);
@@ -172,34 +158,16 @@
 
         .cta-btn:hover {
             transform: translateY(-6px) scale(1.06);
-            box-shadow: 0 25px 60px #ff2b7a, 0 0 30px #ff99cc;
-            background: linear-gradient(45deg, #b300ff, #ff1a5c);
+            box-shadow: 0 25px 60px #ff2b7a;
         }
 
-        .cta-btn:active {
-            transform: translateY(2px) scale(0.97);
-        }
-
-        .cta-btn::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(transparent, rgba(255,255,255,0.25), transparent);
-            transform: rotate(45deg);
-            animation: shineMove 2.8s infinite;
-        }
-
-        /* ===== منطقة الإعلانات الإغرائية ===== */
+        /* ===== الأزرار ===== */
         .teaser-banner {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 18px;
             margin-top: 20px;
-            animation: fadeInUp 1s ease-out 0.5s both;
         }
 
         .ad-card {
@@ -215,19 +183,15 @@
             border: 1px solid rgba(255, 80, 150, 0.5);
             box-shadow: 0 10px 25px rgba(0,0,0,0.6);
             font-weight: 600;
-            letter-spacing: 1px;
         }
 
         .ad-card:hover {
             background: rgba(255, 20, 100, 0.3);
-            border-color: #ff6b9d;
             transform: scale(1.08);
-            box-shadow: 0 15px 35px #ff2a7a;
         }
 
         .ad-icon {
             font-size: 2rem;
-            filter: drop-shadow(0 0 10px #ff0066);
         }
 
         .ad-text {
@@ -240,20 +204,15 @@
             border: 2px solid #ffa0c0;
         }
 
-        /* ===== النص السفلي ===== */
         .footer-note {
             position: absolute;
             bottom: 20px;
             font-size: 0.9rem;
             opacity: 0.8;
-            letter-spacing: 2px;
             color: #ffc0d0;
-            text-shadow: 0 0 8px black;
-            cursor: default;
-            user-select: none;
         }
 
-        /* ===== لوحة التحكم ===== */
+        /* ===== لوحة التحكم المحسنة ===== */
         .admin-modal {
             display: none;
             position: fixed;
@@ -261,10 +220,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 9999;
             overflow-y: auto;
-            animation: fadeIn 0.3s;
         }
 
         .admin-modal.active {
@@ -272,27 +230,23 @@
         }
 
         .admin-container {
-            background: linear-gradient(145deg, #1a0a2e, #0d0015);
+            background: #1a1a2e;
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 600px;
+            margin: 30px auto;
             border: 2px solid #ff4d6d;
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 800px;
-            margin: 50px auto;
-            position: relative;
-            box-shadow: 0 0 50px rgba(255, 0, 100, 0.5);
         }
 
         .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #ff4d6d;
+            margin-bottom: 20px;
         }
 
         .admin-title {
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: #ff4d6d;
             font-weight: 800;
         }
@@ -301,82 +255,82 @@
             background: #ff4d6d;
             color: white;
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .admin-tab {
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #ff4d6d;
+            border-radius: 20px;
+            cursor: pointer;
+            color: white;
             transition: all 0.3s;
         }
 
-        .close-admin:hover {
-            transform: rotate(90deg);
-            background: #ff1a5c;
+        .admin-tab.active {
+            background: #ff4d6d;
+            color: white;
         }
 
         .admin-section {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 77, 109, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
         }
 
         .admin-section h3 {
             color: #ffb6c1;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
         }
 
-        .form-group {
-            margin-bottom: 15px;
+        .upload-area {
+            border: 2px dashed #ff4d6d;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: all 0.3s;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #ffc0d0;
-            font-size: 0.9rem;
+        .upload-area:hover {
+            background: rgba(255, 77, 109, 0.1);
         }
 
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #ff4d6d;
-            border-radius: 8px;
+        .upload-btn {
+            background: #ff4d6d;
             color: white;
-            font-size: 1rem;
-        }
-
-        .form-group textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-
-        .admin-btn {
-            background: linear-gradient(45deg, #ff1a5c, #b300ff);
-            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
             border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
             cursor: pointer;
             font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            margin: 5px;
         }
 
-        .admin-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255, 0, 100, 0.5);
+        .preview-container {
+            margin: 10px 0;
+            text-align: center;
         }
 
-        .btn-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .preview-container img,
+        .preview-container video {
+            max-width: 100%;
+            max-height: 150px;
+            border-radius: 10px;
         }
 
         .btn-item {
@@ -386,14 +340,10 @@
             background: rgba(255, 255, 255, 0.08);
             padding: 10px;
             border-radius: 8px;
+            margin-bottom: 8px;
         }
 
-        .btn-item .btn-info {
-            flex: 1;
-            margin-left: 10px;
-        }
-
-        .btn-item .btn-actions {
+        .btn-actions {
             display: flex;
             gap: 5px;
         }
@@ -403,7 +353,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         .btn-edit {
@@ -416,32 +366,47 @@
             color: white;
         }
 
+        .admin-btn {
+            background: linear-gradient(45deg, #ff1a5c, #b300ff);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 100, 0.5);
+        }
+
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
         }
 
         .stat-card {
             background: rgba(255, 255, 255, 0.08);
-            padding: 15px;
-            border-radius: 10px;
+            padding: 10px;
+            border-radius: 8px;
             text-align: center;
         }
 
         .stat-number {
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: #ff4d6d;
             font-weight: 800;
         }
 
         .stat-label {
             color: #ffc0d0;
-            font-size: 0.9rem;
-            margin-top: 5px;
+            font-size: 0.8rem;
         }
 
-        /* ===== شاشة كلمة السر ===== */
         .password-screen {
             position: fixed;
             top: 0;
@@ -456,23 +421,22 @@
         }
 
         .password-box {
-            background: linear-gradient(145deg, #1a0a2e, #0d0015);
+            background: #1a1a2e;
             border: 2px solid #ff4d6d;
-            border-radius: 20px;
-            padding: 40px;
+            border-radius: 15px;
+            padding: 30px;
             text-align: center;
-            box-shadow: 0 0 50px rgba(255, 0, 100, 0.7);
         }
 
         .password-box input {
             width: 100%;
-            padding: 15px;
-            margin: 20px 0;
+            padding: 12px;
+            margin: 15px 0;
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid #ff4d6d;
-            border-radius: 10px;
+            border-radius: 8px;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             text-align: center;
         }
 
@@ -480,23 +444,11 @@
             background: linear-gradient(45deg, #ff1a5c, #b300ff);
             color: white;
             border: none;
-            padding: 15px 40px;
-            border-radius: 25px;
+            padding: 10px 30px;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 1.2rem;
-            font-weight: 700;
-            transition: all 0.3s;
-        }
-
-        .password-box button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(255, 0, 100, 0.6);
-        }
-
-        /* ===== الحركات ===== */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            font-size: 1rem;
+            margin: 5px;
         }
 
         @keyframes fadeInDown {
@@ -504,20 +456,10 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         @keyframes pulseGlow {
-            0% { box-shadow: 0 15px 40px rgba(200,0,120,0.7), 0 0 0 0 rgba(255,0,102,0.5); }
-            70% { box-shadow: 0 15px 40px rgba(200,0,120,0.7), 0 0 0 25px rgba(255,0,102,0); }
-            100% { box-shadow: 0 15px 40px rgba(200,0,120,0.7), 0 0 0 0 rgba(255,0,102,0); }
-        }
-
-        @keyframes shineMove {
-            0% { transform: rotate(45deg) translateX(-100%); }
-            100% { transform: rotate(45deg) translateX(100%); }
+            0% { box-shadow: 0 15px 40px rgba(200,0,120,0.7); }
+            50% { box-shadow: 0 15px 40px rgba(200,0,120,0.9), 0 0 30px #ff2b7a; }
+            100% { box-shadow: 0 15px 40px rgba(200,0,120,0.7); }
         }
 
         @keyframes livePulse {
@@ -532,24 +474,16 @@
             .ad-card { padding: 8px 15px; }
             .brand { font-size: 1.2rem; }
             .admin-container {
-                margin: 20px;
-                padding: 20px;
+                margin: 10px;
+                padding: 15px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== خلفية فيديو راقصات ===== -->
-    <div class="video-background" id="videoBackground">
-        <video autoplay muted loop playsinline id="bgVideo">
-            <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
-            <source src="https://cdn.pixabay.com/video/2021/08/20/86050-591436158_large.mp4" type="video/mp4">
-            متصفحك لا يدعم الفيديو.
-        </video>
-    </div>
-
-    <!-- طبقة تظليل وإغراء -->
+    <!-- الخلفية -->
+    <div class="video-background" id="videoBackground"></div>
     <div class="overlay"></div>
 
     <!-- الشريط العلوي -->
@@ -563,29 +497,25 @@
         <h1 class="title" id="mainTitle">ليالي الرقص</h1>
         <p class="subtitle" id="mainSubtitle">🔥 تعارف · دروس خاصة · إيقاع لا يتوقف 🔥</p>
 
-        <!-- زر رئيسي -->
         <a href="#" class="cta-btn" id="mainCta">⬇ انضم للعالم السري</a>
 
-        <!-- إعلانات إغرائية عند الضغط تحول للرابط -->
-        <div class="teaser-banner" id="teaserBanner">
-            <!-- ستتم إدارة الأزرار من هنا -->
-        </div>
+        <div class="teaser-banner" id="teaserBanner"></div>
     </div>
 
     <div class="footer-note" id="footerNote">اضغط أي إعلان للانضمام الفوري</div>
 
-    <!-- ===== شاشة كلمة السر ===== -->
+    <!-- شاشة كلمة السر -->
     <div class="password-screen" id="passwordScreen" style="display: none;">
         <div class="password-box">
-            <h2 style="color: #ff4d6d; margin-bottom: 20px;">🔐 كلمة السر</h2>
+            <h2 style="color: #ff4d6d; margin-bottom: 15px;">🔐 كلمة السر</h2>
             <input type="password" id="passwordInput" placeholder="أدخل كلمة السر">
             <br>
             <button onclick="checkPassword()">دخول</button>
-            <button onclick="closePasswordScreen()" style="margin-top: 10px; background: #666;">إلغاء</button>
+            <button onclick="closePasswordScreen()" style="background: #666;">إلغاء</button>
         </div>
     </div>
 
-    <!-- ===== لوحة التحكم ===== -->
+    <!-- لوحة التحكم -->
     <div class="admin-modal" id="adminModal">
         <div class="admin-container">
             <div class="admin-header">
@@ -593,8 +523,15 @@
                 <button class="close-admin" onclick="closeAdmin()">×</button>
             </div>
 
-            <!-- إحصائيات -->
-            <div class="admin-section">
+            <div class="admin-tabs">
+                <button class="admin-tab active" onclick="switchTab('stats')">📊 الإحصائيات</button>
+                <button class="admin-tab" onclick="switchTab('buttons')">🔘 الأزرار</button>
+                <button class="admin-tab" onclick="switchTab('background')">🎨 الخلفية</button>
+                <button class="admin-tab" onclick="switchTab('settings')">⚙️ الإعدادات</button>
+            </div>
+
+            <!-- قسم الإحصائيات -->
+            <div class="admin-section" id="statsSection">
                 <h3>📊 الإحصائيات</h3>
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -612,43 +549,40 @@
                 </div>
             </div>
 
-            <!-- إدارة الأزرار -->
-            <div class="admin-section">
+            <!-- قسم الأزرار -->
+            <div class="admin-section" id="buttonsSection" style="display: none;">
                 <h3>🔘 إدارة الأزرار</h3>
-                <div class="btn-list" id="btnList"></div>
-                <button class="admin-btn" onclick="addNewButton()">➕ إضافة زر جديد</button>
+                <div id="btnList"></div>
+                <button class="admin-btn" onclick="addNewButton()">➕ إضافة زر</button>
             </div>
 
-            <!-- تغيير الخلفية -->
-            <div class="admin-section">
+            <!-- قسم الخلفية -->
+            <div class="admin-section" id="backgroundSection" style="display: none;">
                 <h3>🎨 تغيير الخلفية</h3>
-                <div class="form-group">
-                    <label>رابط فيديو:</label>
-                    <input type="url" id="videoUrl" placeholder="https://example.com/video.mp4">
+                <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                    <p>📁 اضغط لاختيار فيديو أو صورة من جهازك</p>
+                    <input type="file" id="fileInput" accept="video/*,image/*" style="display: none;" onchange="handleFileUpload(event)">
                 </div>
-                <div class="form-group">
-                    <label>رابط صورة:</label>
-                    <input type="url" id="imageUrl" placeholder="https://example.com/image.jpg">
-                </div>
-                <button class="admin-btn" onclick="changeBackground()">🔄 تحديث الخلفية</button>
+                <div class="preview-container" id="previewContainer"></div>
+                <button class="admin-btn" onclick="applyUploadedBackground()">✅ تطبيق الخلفية</button>
                 <button class="admin-btn" onclick="resetBackground()">↩️ استعادة الافتراضية</button>
             </div>
 
-            <!-- حفظ التغييرات -->
-            <div class="admin-section">
-                <button class="admin-btn" onclick="saveAllChanges()">💾 حفظ جميع التغييرات</button>
-                <button class="admin-btn" onclick="exportData()">📤 تصدير البيانات</button>
-                <button class="admin-btn" onclick="importData()">📥 استيراد البيانات</button>
+            <!-- قسم الإعدادات -->
+            <div class="admin-section" id="settingsSection" style="display: none;">
+                <h3>⚙️ الإعدادات</h3>
+                <button class="admin-btn" onclick="saveAllChanges()">💾 حفظ التغييرات</button>
+                <button class="admin-btn" onclick="exportData()">📤 تصدير</button>
+                <button class="admin-btn" onclick="importData()">📥 استيراد</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ===== الإعدادات والبيانات =====
-        const ADMIN_PASSWORD = "admin123"; // كلمة السر الافتراضية
+        // ===== البيانات والإعدادات =====
+        const ADMIN_PASSWORD = "admin123";
         const MAIN_LINK = "https://enjoysex.top/lp/00004PPC";
         
-        // بيانات افتراضية
         let siteData = {
             mainButton: {
                 text: "⬇ انضم للعالم السري",
@@ -664,74 +598,80 @@
                 { icon: "✨", text: "عروض خاصة", link: MAIN_LINK, special: false }
             ],
             background: {
-                type: "video", // video أو image
-                url: "https://www.w3schools.com/howto/rain.mp4"
+                type: "video",
+                url: "https://www.w3schools.com/howto/rain.mp4",
+                dataUrl: null // لتخزين الملفات المرفوعة
             }
         };
 
-        // ===== نظام الزيارات =====
-        function generateVisitorId() {
-            let visitorId = localStorage.getItem('visitorId');
-            if (!visitorId) {
-                visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                localStorage.setItem('visitorId', visitorId);
+        let uploadedFile = null;
+
+        // ===== نظام الزيارات المحسن =====
+        function getDeviceId() {
+            let deviceId = localStorage.getItem('deviceId');
+            if (!deviceId) {
+                deviceId = 'device_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('deviceId', deviceId);
             }
-            return visitorId;
+            return deviceId;
         }
 
-        function getClientIP() {
-            // محاولة الحصول على IP من مصادر مختلفة
-            return new Promise((resolve) => {
-                // طريقة بديلة: توليد معرف فريد للجهاز
-                let deviceId = localStorage.getItem('deviceId');
-                if (!deviceId) {
-                    deviceId = 'device_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                    localStorage.setItem('deviceId', deviceId);
+        function trackVisit() {
+            const deviceId = getDeviceId();
+            const now = Date.now();
+            const FIVE_HOURS = 5 * 60 * 60 * 1000; // 5 ساعات بالميلي ثانية
+            
+            let visits = JSON.parse(localStorage.getItem('visits') || '{"total": 0, "uniqueDevices": {}, "lastVisitTimes": {}}');
+            
+            // التحقق من آخر زيارة لهذا الجهاز
+            const lastVisit = visits.lastVisitTimes[deviceId] || 0;
+            
+            if (now - lastVisit >= FIVE_HOURS) {
+                // زيارة جديدة صالحة
+                visits.total++;
+                
+                // تسجيل الزوار الفريدين
+                if (!visits.uniqueDevices[deviceId]) {
+                    visits.uniqueDevices[deviceId] = {
+                        firstVisit: now,
+                        visitCount: 0
+                    };
                 }
-                resolve(deviceId);
-            });
-        }
-
-        async function trackVisit() {
-            const visitorId = generateVisitorId();
-            const deviceId = await getClientIP();
-            
-            let visits = JSON.parse(localStorage.getItem('visits') || '{"total": 0, "unique": [], "today": [], "lastVisit": ""}');
-            
-            const today = new Date().toDateString();
-            
-            // إجمالي الزيارات
-            visits.total++;
-            
-            // الزوار الفريدون
-            if (!visits.unique.includes(deviceId)) {
-                visits.unique.push(deviceId);
+                
+                visits.uniqueDevices[deviceId].visitCount++;
+                visits.uniqueDevices[deviceId].lastVisit = now;
+                
+                // تحديث وقت آخر زيارة
+                visits.lastVisitTimes[deviceId] = now;
+                
+                // حفظ البيانات
+                localStorage.setItem('visits', JSON.stringify(visits));
             }
             
-            // زيارات اليوم
-            if (visits.lastVisit !== today) {
-                visits.today = [];
-                visits.lastVisit = today;
-            }
-            if (!visits.today.includes(visitorId)) {
-                visits.today.push(visitorId);
-            }
-            
-            localStorage.setItem('visits', JSON.stringify(visits));
-            
-            // تحديث الإحصائيات في اللوحة إذا كانت مفتوحة
             updateStats();
         }
 
         function updateStats() {
-            const visits = JSON.parse(localStorage.getItem('visits') || '{"total": 0, "unique": [], "today": [], "lastVisit": ""}');
+            const visits = JSON.parse(localStorage.getItem('visits') || '{"total": 0, "uniqueDevices": {}, "lastVisitTimes": {}}');
             
-            document.getElementById('totalVisits').textContent = visits.total || 0;
-            document.getElementById('uniqueVisitors').textContent = visits.unique ? visits.unique.length : 0;
-            document.getElementById('todayVisits').textContent = visits.today ? visits.today.length : 0;
+            const totalVisits = visits.total || 0;
+            const uniqueVisitors = Object.keys(visits.uniqueDevices || {}).length;
+            
+            // حساب زيارات اليوم
+            const today = new Date().toDateString();
+            let todayVisits = 0;
+            Object.values(visits.uniqueDevices || {}).forEach(device => {
+                if (device.lastVisit && new Date(device.lastVisit).toDateString() === today) {
+                    todayVisits++;
+                }
+            });
+            
+            document.getElementById('totalVisits').textContent = totalVisits;
+            document.getElementById('uniqueVisitors').textContent = uniqueVisitors;
+            document.getElementById('todayVisits').textContent = todayVisits;
         }
 
-        // ===== إدارة النقرات السرية =====
+        // ===== النقرات السرية =====
         let clickCount = 0;
         let clickTimer = null;
 
@@ -770,14 +710,13 @@
             }
         }
 
-        // إدخال كلمة السر بالضغط على Enter
         document.getElementById('passwordInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 checkPassword();
             }
         });
 
-        // ===== فتح وإغلاق لوحة التحكم =====
+        // ===== لوحة التحكم =====
         function openAdmin() {
             document.getElementById('adminModal').classList.add('active');
             loadAdminData();
@@ -788,28 +727,44 @@
             document.getElementById('adminModal').classList.remove('active');
         }
 
-        // ===== تحميل البيانات في لوحة التحكم =====
+        function switchTab(tab) {
+            // إخفاء جميع الأقسام
+            document.getElementById('statsSection').style.display = 'none';
+            document.getElementById('buttonsSection').style.display = 'none';
+            document.getElementById('backgroundSection').style.display = 'none';
+            document.getElementById('settingsSection').style.display = 'none';
+            
+            // إظهار القسم المطلوب
+            if (tab === 'stats') {
+                document.getElementById('statsSection').style.display = 'block';
+                updateStats();
+            } else if (tab === 'buttons') {
+                document.getElementById('buttonsSection').style.display = 'block';
+                renderButtonList();
+            } else if (tab === 'background') {
+                document.getElementById('backgroundSection').style.display = 'block';
+            } else if (tab === 'settings') {
+                document.getElementById('settingsSection').style.display = 'block';
+            }
+            
+            // تحديث التبويبات
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
         function loadAdminData() {
-            // تحميل البيانات المحفوظة
             const savedData = localStorage.getItem('siteData');
             if (savedData) {
                 siteData = JSON.parse(savedData);
             }
             
-            // تحديث الأزرار في القائمة
-            renderButtonList();
-            
-            // تحديث حقول الخلفية
-            document.getElementById('videoUrl').value = siteData.background.type === 'video' ? siteData.background.url : '';
-            document.getElementById('imageUrl').value = siteData.background.type === 'image' ? siteData.background.url : '';
-            
-            // تحديث النصوص
             document.getElementById('mainTitle').textContent = siteData.title;
             document.getElementById('mainSubtitle').textContent = siteData.subtitle;
             document.getElementById('footerNote').textContent = siteData.footerNote;
             document.getElementById('mainCta').textContent = siteData.mainButton.text;
         }
 
+        // ===== إدارة الأزرار =====
         function renderButtonList() {
             const btnList = document.getElementById('btnList');
             btnList.innerHTML = '';
@@ -818,24 +773,23 @@
                 const btnItem = document.createElement('div');
                 btnItem.className = 'btn-item';
                 btnItem.innerHTML = `
-                    <div class="btn-info">
-                        <strong>${btn.icon}</strong> ${btn.text} - <small>${btn.link}</small>
+                    <div>
+                        <strong>${btn.icon}</strong> ${btn.text}
                         ${btn.special ? ' <span style="color: #ff4d6d;">(مميز)</span>' : ''}
                     </div>
                     <div class="btn-actions">
-                        <button class="btn-edit" onclick="editButton(${index})">✏️ تعديل</button>
-                        <button class="btn-delete" onclick="deleteButton(${index})">🗑️ حذف</button>
+                        <button class="btn-edit" onclick="editButton(${index})">✏️</button>
+                        <button class="btn-delete" onclick="deleteButton(${index})">🗑️</button>
                     </div>
                 `;
                 btnList.appendChild(btnItem);
             });
         }
 
-        // ===== إدارة الأزرار =====
         function addNewButton() {
-            const icon = prompt('أدخل الأيقونة (مثال: 💃):', '🎯');
-            const text = prompt('أدخل نص الزر:', 'زر جديد');
-            const link = prompt('أدخل الرابط:', MAIN_LINK);
+            const icon = prompt('الأيقونة (مثال: 💃):', '🎯');
+            const text = prompt('نص الزر:', 'زر جديد');
+            const link = prompt('الرابط:', MAIN_LINK);
             
             if (icon && text && link) {
                 siteData.buttons.push({
@@ -852,9 +806,9 @@
 
         function editButton(index) {
             const btn = siteData.buttons[index];
-            const icon = prompt('أدخل الأيقونة:', btn.icon);
-            const text = prompt('أدخل نص الزر:', btn.text);
-            const link = prompt('أدخل الرابط:', btn.link);
+            const icon = prompt('الأيقونة:', btn.icon);
+            const text = prompt('نص الزر:', btn.text);
+            const link = prompt('الرابط:', btn.link);
             
             if (icon && text && link) {
                 siteData.buttons[index] = {
@@ -870,7 +824,7 @@
         }
 
         function deleteButton(index) {
-            if (confirm('هل أنت متأكد من حذف هذا الزر؟')) {
+            if (confirm('حذف هذا الزر؟')) {
                 siteData.buttons.splice(index, 1);
                 renderButtonList();
                 applySiteData();
@@ -878,39 +832,69 @@
             }
         }
 
-        // ===== تغيير الخلفية =====
-        function changeBackground() {
-            const videoUrl = document.getElementById('videoUrl').value;
-            const imageUrl = document.getElementById('imageUrl').value;
+        // ===== رفع الملفات =====
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
             
-            if (videoUrl) {
-                siteData.background = {
-                    type: 'video',
-                    url: videoUrl
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                uploadedFile = {
+                    dataUrl: e.target.result,
+                    type: file.type,
+                    name: file.name
                 };
-            } else if (imageUrl) {
-                siteData.background = {
-                    type: 'image',
-                    url: imageUrl
-                };
-            } else {
-                alert('⚠️ أدخل رابط فيديو أو صورة');
+                
+                // عرض معاينة
+                const previewContainer = document.getElementById('previewContainer');
+                previewContainer.innerHTML = '';
+                
+                if (file.type.startsWith('image/')) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxWidth = '100%';
+                    img.style.maxHeight = '200px';
+                    previewContainer.appendChild(img);
+                } else if (file.type.startsWith('video/')) {
+                    const video = document.createElement('video');
+                    video.src = e.target.result;
+                    video.controls = true;
+                    video.style.maxWidth = '100%';
+                    video.style.maxHeight = '200px';
+                    previewContainer.appendChild(video);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function applyUploadedBackground() {
+            if (!uploadedFile) {
+                alert('⚠️ اختر ملفاً أولاً');
                 return;
             }
             
+            siteData.background = {
+                type: uploadedFile.type.startsWith('image/') ? 'image' : 'video',
+                url: uploadedFile.dataUrl,
+                dataUrl: uploadedFile.dataUrl
+            };
+            
             applyBackground();
             saveAllChanges();
+            alert('✅ تم تطبيق الخلفية بنجاح!');
         }
 
         function resetBackground() {
             siteData.background = {
                 type: 'video',
-                url: 'https://www.w3schools.com/howto/rain.mp4'
+                url: 'https://www.w3schools.com/howto/rain.mp4',
+                dataUrl: null
             };
-            document.getElementById('videoUrl').value = '';
-            document.getElementById('imageUrl').value = '';
+            uploadedFile = null;
+            document.getElementById('previewContainer').innerHTML = '';
             applyBackground();
             saveAllChanges();
+            alert('✅ تم استعادة الخلفية الافتراضية');
         }
 
         function applyBackground() {
@@ -924,25 +908,29 @@
                 video.loop = true;
                 video.playsInline = true;
                 video.src = siteData.background.url;
+                video.style.width = '100%';
+                video.style.height = '100%';
+                video.style.objectFit = 'cover';
                 bgContainer.appendChild(video);
             } else {
                 const img = document.createElement('img');
                 img.src = siteData.background.url;
-                img.alt = 'Background';
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
                 bgContainer.appendChild(img);
             }
         }
 
-        // ===== حفظ واستيراد/تصدير البيانات =====
+        // ===== حفظ البيانات =====
         function saveAllChanges() {
-            // تحديث النصوص
             siteData.title = document.getElementById('mainTitle').textContent;
             siteData.subtitle = document.getElementById('mainSubtitle').textContent;
             siteData.footerNote = document.getElementById('footerNote').textContent;
             siteData.mainButton.text = document.getElementById('mainCta').textContent;
             
             localStorage.setItem('siteData', JSON.stringify(siteData));
-            alert('✅ تم حفظ جميع التغييرات بنجاح!');
+            alert('✅ تم حفظ التغييرات!');
         }
 
         function exportData() {
@@ -969,9 +957,9 @@
                         localStorage.setItem('siteData', JSON.stringify(siteData));
                         loadAdminData();
                         applySiteData();
-                        alert('✅ تم استيراد البيانات بنجاح!');
+                        alert('✅ تم استيراد البيانات!');
                     } catch (error) {
-                        alert('❌ خطأ في استيراد البيانات!');
+                        alert('❌ خطأ في الاستيراد!');
                     }
                 };
                 reader.readAsText(file);
@@ -979,25 +967,21 @@
             input.click();
         }
 
-        // ===== تطبيق البيانات على الموقع =====
+        // ===== تطبيق البيانات =====
         function applySiteData() {
-            // تطبيق الخلفية
             applyBackground();
             
-            // تطبيق النصوص
             document.getElementById('mainTitle').textContent = siteData.title;
             document.getElementById('mainSubtitle').textContent = siteData.subtitle;
             document.getElementById('footerNote').textContent = siteData.footerNote;
             document.getElementById('mainCta').textContent = siteData.mainButton.text;
             
-            // تطبيق الأزرار
             const teaserBanner = document.getElementById('teaserBanner');
             teaserBanner.innerHTML = '';
             
             siteData.buttons.forEach(btn => {
                 const adCard = document.createElement('div');
                 adCard.className = 'ad-card' + (btn.special ? ' special' : '');
-                adCard.setAttribute('data-link', btn.link);
                 adCard.innerHTML = `
                     <span class="ad-icon">${btn.icon}</span>
                     <span class="ad-text">${btn.text}</span>
@@ -1009,27 +993,21 @@
             });
         }
 
-        // ===== تهيئة الموقع =====
+        // ===== التهيئة =====
         function initializeSite() {
-            // تحميل البيانات المحفوظة
             const savedData = localStorage.getItem('siteData');
             if (savedData) {
                 siteData = JSON.parse(savedData);
             }
             
-            // تطبيق البيانات
             applySiteData();
-            
-            // تتبع الزيارة
             trackVisit();
             
-            // إعداد الزر الرئيسي
             document.getElementById('mainCta').addEventListener('click', function(e) {
                 e.preventDefault();
                 window.open(siteData.mainButton.link, '_blank');
             });
             
-            // تأثير تفاعلي للزر الرئيسي عند التحويم
             const mainBtn = document.getElementById('mainCta');
             mainBtn.addEventListener('mouseenter', () => {
                 mainBtn.textContent = '🚀 ابدأ الآن';
@@ -1038,11 +1016,9 @@
                 mainBtn.textContent = siteData.mainButton.text;
             });
             
-            // تحديث الإحصائيات كل دقيقة
-            setInterval(updateStats, 60000);
+            setInterval(updateStats, 300000); // تحديث كل 5 دقائق
         }
 
-        // بدء التهيئة عند تحميل الصفحة
         window.addEventListener('load', initializeSite);
     </script>
 </body>
