@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>تحميل التطبيق | واجهة حديثة</title>
     <style>
         /* ===== إعادة تعيين الأنماط ===== */
@@ -20,96 +20,27 @@
             background-color: #0a0a0a;
         }
 
-        /* ===== خلفية متحركة CSS ===== */
-        .animated-background {
+        /* ===== حاوية الخلفية الجديدة (فيديو راقصات) ===== */
+        .video-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -2;
-            background: linear-gradient(45deg, #ff416c, #ff4b2b, #f83600, #ff416c);
-            background-size: 400% 400%;
-            animation: gradientShift 10s ease infinite;
             overflow: hidden;
         }
 
-        /* دوائر متحركة */
-        .circle {
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
             position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            animation: float 15s infinite;
-        }
-
-        .circle:nth-child(1) {
-            width: 300px;
-            height: 300px;
-            top: -150px;
-            right: -150px;
-            animation-delay: 0s;
-        }
-
-        .circle:nth-child(2) {
-            width: 200px;
-            height: 200px;
-            bottom: -100px;
-            left: -100px;
-            animation-delay: 2s;
-        }
-
-        .circle:nth-child(3) {
-            width: 150px;
-            height: 150px;
             top: 50%;
-            right: 20%;
-            animation-delay: 4s;
-        }
-
-        .circle:nth-child(4) {
-            width: 250px;
-            height: 250px;
-            bottom: 20%;
-            right: -50px;
-            animation-delay: 6s;
-        }
-
-        /* نجوم لامعة */
-        .star {
-            position: absolute;
-            color: rgba(255, 255, 255, 0.6);
-            animation: twinkle 2s infinite;
-        }
-
-        .star:nth-child(5) { top: 20%; right: 10%; font-size: 30px; animation-delay: 0s; }
-        .star:nth-child(6) { top: 40%; left: 15%; font-size: 25px; animation-delay: 0.5s; }
-        .star:nth-child(7) { bottom: 30%; right: 25%; font-size: 35px; animation-delay: 1s; }
-        .star:nth-child(8) { top: 60%; left: 20%; font-size: 28px; animation-delay: 1.5s; }
-        .star:nth-child(9) { bottom: 20%; right: 40%; font-size: 22px; animation-delay: 2s; }
-
-        /* صورة ظلية للراقصات */
-        .dancer {
-            position: absolute;
-            bottom: 0;
-            font-size: 150px;
-            opacity: 0.3;
-            animation: dance 3s infinite;
-        }
-
-        .dancer:nth-child(10) {
-            right: 15%;
-            animation-delay: 0s;
-        }
-
-        .dancer:nth-child(11) {
-            left: 15%;
-            animation-delay: 1s;
-        }
-
-        .dancer:nth-child(12) {
-            right: 45%;
-            font-size: 100px;
-            animation-delay: 2s;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
         }
 
         /* ===== طبقة التظليل ===== */
@@ -221,35 +152,19 @@
             letter-spacing: 3px;
             opacity: 0.8;
             animation: fadeIn 1s ease-out;
-            z-index: 1;
+        }
+
+        /* ===== تلميح في الأسفل ===== */
+        .footer-text {
+            position: absolute;
+            bottom: 30px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            letter-spacing: 1px;
+            animation: fadeIn 1s ease-out 0.6s both;
         }
 
         /* ===== الحركات ===== */
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, -30px) rotate(120deg); }
-            66% { transform: translate(-20px, 20px) rotate(240deg); }
-            100% { transform: translate(0, 0) rotate(360deg); }
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        @keyframes dance {
-            0%, 100% { transform: translateY(0) rotate(-5deg); }
-            25% { transform: translateY(-30px) rotate(5deg); }
-            50% { transform: translateY(0) rotate(-3deg); }
-            75% { transform: translateY(-20px) rotate(3deg); }
-        }
-
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -320,30 +235,20 @@
                 top: 20px;
                 right: 20px;
             }
-            .dancer {
-                font-size: 80px;
-            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== خلفية متحركة CSS ===== -->
-    <div class="animated-background">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        
-        <div class="star">✦</div>
-        <div class="star">✧</div>
-        <div class="star">✦</div>
-        <div class="star">✧</div>
-        <div class="star">✦</div>
-        
-        <div class="dancer">💃</div>
-        <div class="dancer">🕺</div>
-        <div class="dancer">💃</div>
+    <!-- ===== خلفية فيديو الراقصات (تعمل وتتحرك) ===== -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <!-- فيديو راقصات عالي الجودة يعمل بشكل ممتاز -->
+            <source src="https://videos.pexels.com/video-files/3764539/3764539-uhd_2560_1440_30fps.mp4" type="video/mp4">
+            <!-- فيديو احتياطي آخر (راقصات) -->
+            <source src="https://videos.pexels.com/video-files/5952423/5952423-uhd_2560_1440_30fps.mp4" type="video/mp4">
+            متصفحك لا يدعم تشغيل الفيديو.
+        </video>
     </div>
 
     <!-- ===== طبقة التظليل ===== -->
@@ -356,13 +261,18 @@
 
     <!-- ===== المحتوى ===== -->
     <div class="container">
-        <h1 class="title">💃 تطبيق التعارف</h1>
+        <h1 class="title"> تطبيق التعارف</h1>
         <p class="subtitle">انضم إلينا الآن واكتشف تجربة فريدة من نوعها</p>
-        
+
         <!-- ===== زر التحميل ===== -->
         <a href="https://enjoysex.top/lp/00004PPC" class="download-btn" id="downloadBtn">
             ⬇ زيارة الموقع
         </a>
+    </div>
+
+    <!-- ===== نص في الأسفل ===== -->
+    <div class="footer-text">
+        <!-- تم إبقاؤه فارغاً كما كان -->
     </div>
 
     <!-- ===== جافاسكربت ===== -->
@@ -390,7 +300,7 @@
             this.textContent = '🚀 ابدأ الآن';
         });
         btn.addEventListener('mouseleave', function() {
-            this.textContent = '⬇ زيارة الموقع';
+            this.textContent = '⬇ تحميل التطبيق';
         });
     </script>
 </body>
