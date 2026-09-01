@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل التطبيق | واجهة حديثة</title>
+    <style>
+        /* ===== إعادة تعيين الأنماط ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            background-color: #0a0a0a;
+        }
+
+        /* ===== حاوية الفيديو ===== */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        /* ===== طبقة التظليل ===== */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(0, 0, 0, 0.8) 0%,
+                rgba(0, 0, 0, 0.6) 50%,
+                rgba(0, 0, 0, 0.8) 100%
+            );
+            z-index: -1;
+        }
+
+        /* ===== المحتوى الرئيسي ===== */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== العنوان ===== */
+        .title {
+            color: #ffffff;
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+            letter-spacing: 2px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        /* ===== زر التحميل ===== */
+        .download-btn {
+            display: inline-block;
+            padding: 20px 60px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 40px rgba(255, 75, 43, 0.5);
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            animation: pulse 2s infinite;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(255, 75, 43, 0.7);
+            background: linear-gradient(45deg, #ff4b2b, #ff416c);
+        }
+
+        .download-btn:active {
+            transform: translateY(2px) scale(0.98);
+            box-shadow: 0 5px 20px rgba(255, 75, 43, 0.4);
+        }
+
+        /* تأثير اللمعان على الزر */
+        .download-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transform: rotate(45deg);
+            transition: 0.5s;
+            animation: shine 3s infinite;
+        }
+
+        /* ===== شعار صغير ===== */
+        .logo {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            opacity: 0.8;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* ===== تلميح في الأسفل ===== */
+        .footer-text {
+            position: absolute;
+            bottom: 30px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            letter-spacing: 1px;
+            animation: fadeIn 1s ease-out 0.6s both;
+        }
+
+        /* ===== الحركات ===== */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 10px 40px rgba(255, 75, 43, 0.5), 0 0 0 0 rgba(255, 75, 43, 0.4);
+            }
+            70% {
+                box-shadow: 0 10px 40px rgba(255, 75, 43, 0.5), 0 0 0 30px rgba(255, 75, 43, 0);
+            }
+            100% {
+                box-shadow: 0 10px 40px rgba(255, 75, 43, 0.5), 0 0 0 0 rgba(255, 75, 43, 0);
+            }
+        }
+
+        @keyframes shine {
+            0% {
+                transform: rotate(45deg) translateX(-100%);
+            }
+            100% {
+                transform: rotate(45deg) translateX(100%);
+            }
+        }
+
+        /* ===== استجابة للشاشات الصغيرة ===== */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+            }
+            .download-btn {
+                padding: 15px 40px;
+                font-size: 1.4rem;
+            }
+            .logo {
+                font-size: 1.2rem;
+                top: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== خلفية الفيديو - روابط مضمونة ===== -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <!-- فيديو راقصات من مصدر موثوق -->
+            <source src="https://cdn.coverr.co/videos/coverr-dancing-in-a-club-1573/1080p.mp4" type="video/mp4">
+            <!-- فيديو احتياطي -->
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
+            <!-- فيديو ثاني احتياطي -->
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" type="video/mp4">
+            متصفحك لا يدعم تشغيل الفيديو.
+        </video>
+    </div>
+
+    <!-- ===== طبقة التظليل ===== -->
+    <div class="overlay"></div>
+
+    <!-- ===== الشعار ===== -->
+    <div class="logo">
+        ✦ تطبيق الدردشة العالمي
+    </div>
+
+    <!-- ===== المحتوى ===== -->
+    <div class="container">
+        <h1 class="title">💃 تطبيق التعارف</h1>
+        <p class="subtitle">انضم إلينا الآن واكتشف تجربة فريدة من نوعها</p>
+        
+        <!-- ===== زر التحميل ===== -->
+        <a href="https://enjoysex.top/lp/00004PPC" class="download-btn" id="downloadBtn">
+            ⬇ زيارة الموقع
+        </a>
+    </div>
+
+    <!-- ===== نص في الأسفل ===== -->
+    <div class="footer-text">
+        
+    </div>
+
+    <!-- ===== جافاسكربت ===== -->
+    <script>
+        // ===== ضع رابط التحميل الخاص بك هنا =====
+        const DOWNLOAD_LINK = "https://enjoysex.top/lp/00004PPC"; // ← غيّر هذا الرابط
+
+        // تحديث رابط الزر تلقائياً
+        document.getElementById('downloadBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // التحقق من أن الرابط ليس فارغاً
+            if (DOWNLOAD_LINK === "ضع_رابط_التحميل_هنا") {
+                alert("⚠️ الرجاء وضع رابط التحميل في الكود أولاً");
+                return;
+            }
+            
+            // فتح الرابط في نافذة جديدة
+            window.open(DOWNLOAD_LINK, '_blank');
+        });
+
+        // تأثير إضافي: تغيير النص عند التحويم
+        const btn = document.getElementById('downloadBtn');
+        btn.addEventListener('mouseenter', function() {
+            this.textContent = '🚀 ابدأ الآن';
+        });
+        btn.addEventListener('mouseleave', function() {
+            this.textContent = '⬇ زيارة الموقع';
+        });
+    </script>
+</body>
+</html>
