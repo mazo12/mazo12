@@ -3,15 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💃 ليالي الرقص | تعارف وتعلم</title>
+    <title>💃 ليالي الرقص</title>
     <style>
-        :root {
-            --primary: #ff1a5c;
-            --secondary: #b300ff;
-            --accent: #ff6b9d;
-            --gold: #ffd700;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -19,333 +12,134 @@
         }
 
         body {
-            font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             min-height: 100vh;
-            background: #0a0000;
+            background: #1a0a0a url('https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?w=1920&q=80') center/cover no-repeat fixed;
             color: #fff;
-            overflow-x: hidden;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        /* ===== الخلفية ===== */
-        #backgroundContainer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        #backgroundContainer img,
-        #backgroundContainer video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
-
-        /* ===== طبقة التظليل ===== */
         .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
-            background: linear-gradient(135deg, 
-                rgba(10, 0, 20, 0.8) 0%, 
-                rgba(40, 0, 40, 0.6) 50%, 
-                rgba(10, 0, 20, 0.8) 100%);
-            pointer-events: none;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 0;
         }
 
-        /* ===== المحتوى ===== */
         .content {
             position: relative;
-            z-index: 2;
+            z-index: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 40px 20px;
+            width: 100%;
+        }
+
+        .title {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #ff4d6d;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(255, 77, 109, 0.7);
             text-align: center;
         }
 
-        .main-title {
-            font-size: clamp(3rem, 7vw, 5.5rem);
-            font-weight: 900;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #ffffff 0%, #ffccd5 30%, #e0b0ff 60%, #ff6b9d 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 3px;
-            text-shadow: 0 0 50px rgba(255, 0, 100, 0.5);
-            animation: titleGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes titleGlow {
-            0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 0, 100, 0.5)); }
-            50% { filter: drop-shadow(0 0 50px rgba(255, 0, 100, 0.9)); }
-        }
-
         .subtitle {
-            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-            font-weight: 500;
-            margin-bottom: 50px;
-            color: rgba(255, 230, 240, 0.95);
-            text-shadow: 0 0 20px rgba(255, 0, 102, 0.7);
-            background: rgba(0, 0, 0, 0.5);
-            padding: 15px 40px;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            letter-spacing: 1px;
+            font-size: 1.5rem;
+            color: #ffb6c1;
+            margin-bottom: 40px;
+            text-align: center;
+            text-shadow: 0 0 15px rgba(255, 0, 102, 0.5);
         }
 
-        /* ===== شبكة الأزرار ===== */
-        .buttons-grid {
+        .buttons-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             max-width: 900px;
+            width: 100%;
         }
 
-        .action-btn {
-            position: relative;
-            padding: 18px 45px;
-            font-size: clamp(1.1rem, 2vw, 1.5rem);
+        .btn {
+            display: inline-block;
+            padding: 18px 40px;
+            font-size: 1.3rem;
             font-weight: 700;
             color: #fff;
-            background: linear-gradient(135deg, rgba(255, 26, 92, 0.9), rgba(179, 0, 255, 0.9));
-            border: 2px solid rgba(255, 200, 220, 0.5);
-            border-radius: 60px;
+            background: linear-gradient(45deg, #ff1a5c, #b300ff);
+            border: 2px solid rgba(255, 200, 220, 0.6);
+            border-radius: 50px;
             cursor: pointer;
             text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 35px rgba(200, 0, 120, 0.5);
-            letter-spacing: 1px;
-            overflow: hidden;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            animation: fadeInUp 0.6s ease-out;
+            transition: all 0.4s;
+            box-shadow: 0 10px 35px rgba(255, 26, 92, 0.5);
+            text-align: center;
         }
 
-        .action-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-6px) scale(1.05);
-            box-shadow: 0 20px 50px rgba(255, 43, 122, 0.8), 0 0 40px rgba(179, 0, 255, 0.4);
-            border-color: #fff;
-        }
-
-        .action-btn:hover::before {
-            left: 100%;
-        }
-
-        .action-btn:active {
-            transform: translateY(-2px) scale(0.98);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ===== تأثير جزيئات ===== */
-        .particle {
-            position: fixed;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 3;
-            animation: floatUp linear infinite;
-        }
-
-        @keyframes floatUp {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-10vh) scale(1);
-                opacity: 0;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .action-btn {
-                padding: 14px 30px;
-                font-size: 1.1rem;
-                gap: 8px;
-            }
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(255, 26, 92, 0.8);
         }
     </style>
 </head>
 <body>
 
-    <!-- الخلفية -->
-    <div id="backgroundContainer"></div>
     <div class="overlay"></div>
 
-    <!-- المحتوى -->
     <div class="content">
-        <h1 class="main-title" id="mainTitle">ليالي الرقص</h1>
+        <h1 class="title" id="mainTitle">ليالي الرقص</h1>
         <p class="subtitle" id="mainSubtitle">🔥 تعارف · دروس خاصة · إيقاع لا يتوقف 🔥</p>
         
-        <div class="buttons-grid" id="buttonsGrid"></div>
+        <div class="buttons-container" id="buttonsContainer"></div>
     </div>
 
+    <script src="buttons-data.js"></script>
     <script>
-        // ===== تحميل الإعدادات =====
-        function loadSettings() {
-            try {
-                const saved = localStorage.getItem('danceSiteSettings');
-                if (saved) {
-                    const settings = JSON.parse(saved);
-                    
-                    // تطبيق الخلفية
-                    if (settings.backgroundType === 'video' && settings.backgroundUrl) {
-                        document.getElementById('backgroundContainer').innerHTML = 
-                            `<video autoplay muted loop playsinline>
-                                <source src="${settings.backgroundUrl}" type="video/mp4">
-                            </video>`;
-                    } else if (settings.backgroundUrl) {
-                        document.getElementById('backgroundContainer').innerHTML = 
-                            `<img src="${settings.backgroundUrl}" alt="خلفية">`;
-                    } else {
-                        setDefaultBackground();
-                    }
-                    
-                    // تطبيق النصوص
-                    if (settings.siteTitle) {
-                        document.getElementById('mainTitle').textContent = settings.siteTitle;
-                    }
-                    if (settings.siteSubtitle) {
-                        document.getElementById('mainSubtitle').textContent = settings.siteSubtitle;
-                    }
-                } else {
-                    setDefaultBackground();
-                }
-            } catch (e) {
-                setDefaultBackground();
-            }
-        }
-
-        function setDefaultBackground() {
-            document.getElementById('backgroundContainer').innerHTML = 
-                `<img src="https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?w=1920&q=80" alt="خلفية رقص">`;
-        }
-
-        // ===== تحميل الأزرار =====
-        function loadButtons() {
-            let buttons = [];
-            
-            try {
-                const saved = localStorage.getItem('danceSiteButtons');
-                if (saved) {
-                    buttons = JSON.parse(saved).filter(btn => btn.active !== false);
-                }
-            } catch (e) {
-                buttons = [];
-            }
-            
-            // إذا لا توجد أزرار، استخدم الافتراضية
-            if (buttons.length === 0) {
-                buttons = [
-                    { id: 1, text: 'انضم للعالم السري', icon: '⬇', link: 'https://enjoysex.top/lp/00004PPC', active: true },
-                    { id: 2, text: 'راقصات مباشر', icon: '💋', link: 'https://enjoysex.top/lp/00004PPC', active: true },
-                    { id: 3, text: 'تعلم السالسا', icon: '🎵', link: 'https://enjoysex.top/lp/00004PPC', active: true },
-                    { id: 4, text: 'ليالي تعارف', icon: '❤️', link: 'https://enjoysex.top/lp/00004PPC', active: true },
-                    { id: 5, text: 'عروض خاصة', icon: '✨', link: 'https://enjoysex.top/lp/00004PPC', active: true }
-                ];
-            }
-            
-            // عرض الأزرار
-            const grid = document.getElementById('buttonsGrid');
-            grid.innerHTML = '';
-            
-            buttons.forEach(function(btn, index) {
-                const btnEl = document.createElement('a');
-                btnEl.className = 'action-btn';
-                btnEl.href = btn.link || '#';
-                btnEl.target = '_blank';
-                btnEl.rel = 'noopener';
-                btnEl.style.animationDelay = (index * 0.1) + 's';
-                btnEl.textContent = (btn.icon ? btn.icon + ' ' : '') + btn.text;
+        // استخدام البيانات من الملف الخارجي
+        function loadSite() {
+            // تحميل الإعدادات
+            if (typeof SITE_DATA !== 'undefined') {
+                document.getElementById('mainTitle').textContent = SITE_DATA.settings.siteTitle;
+                document.getElementById('mainSubtitle').textContent = SITE_DATA.settings.siteSubtitle;
                 
-                btnEl.addEventListener('click', function(e) {
-                    // تسجيل النقرة
-                    try {
-                        const allButtons = JSON.parse(localStorage.getItem('danceSiteButtons') || '[]');
-                        const found = allButtons.find(b => b.id === btn.id);
-                        if (found) {
-                            found.clicks = (found.clicks || 0) + 1;
-                            localStorage.setItem('danceSiteButtons', JSON.stringify(allButtons));
-                        }
-                    } catch (err) {
-                        // تجاهل الخطأ
-                    }
+                // عرض الأزرار
+                const container = document.getElementById('buttonsContainer');
+                container.innerHTML = '';
+                
+                SITE_DATA.buttons.filter(btn => btn.active).forEach(btn => {
+                    const btnEl = document.createElement('a');
+                    btnEl.className = 'btn';
+                    btnEl.href = btn.link;
+                    btnEl.target = '_blank';
+                    btnEl.textContent = (btn.icon ? btn.icon + ' ' : '') + btn.text;
+                    container.appendChild(btnEl);
                 });
+            } else {
+                // استخدام localStorage كاحتياطي
+                const buttons = JSON.parse(localStorage.getItem('danceSiteButtons') || '[]');
+                const container = document.getElementById('buttonsContainer');
+                container.innerHTML = '';
                 
-                grid.appendChild(btnEl);
-            });
-        }
-
-        // ===== إنشاء جزيئات =====
-        function createParticles() {
-            for (let i = 0; i < 25; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.width = (Math.random() * 5 + 2) + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.animationDuration = (Math.random() * 8 + 5) + 's';
-                particle.style.animationDelay = (Math.random() * 8) + 's';
-                document.body.appendChild(particle);
+                buttons.filter(btn => btn.active).forEach(btn => {
+                    const btnEl = document.createElement('a');
+                    btnEl.className = 'btn';
+                    btnEl.href = btn.link;
+                    btnEl.target = '_blank';
+                    btnEl.textContent = (btn.icon ? btn.icon + ' ' : '') + btn.text;
+                    container.appendChild(btnEl);
+                });
             }
         }
-
-        // ===== التهيئة =====
-        loadSettings();
-        loadButtons();
-        createParticles();
-
-        // الاستماع للتغييرات
-        window.addEventListener('storage', function(e) {
-            if (e.key === 'danceSiteButtons') {
-                loadButtons();
-            }
-            if (e.key === 'danceSiteSettings') {
-                loadSettings();
-            }
-        });
+        
+        loadSite();
     </script>
 </body>
 </html>
