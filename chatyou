@@ -52,9 +52,9 @@
             height: 100%;
             background: linear-gradient(
                 135deg,
-                rgba(0, 0, 0, 0.8) 0%,
-                rgba(0, 0, 0, 0.6) 50%,
-                rgba(0, 0, 0, 0.8) 100%
+                rgba(0, 0, 0, 0.7) 0%,
+                rgba(0, 0, 0, 0.5) 50%,
+                rgba(0, 0, 0, 0.7) 100%
             );
             z-index: -1;
         }
@@ -240,15 +240,13 @@
 </head>
 <body>
 
-    <!-- ===== خلفية الفيديو - روابط مضمونة ===== -->
+    <!-- ===== خلفية الفيديو ===== -->
     <div class="video-background">
         <video autoplay muted loop playsinline>
-            <!-- فيديو راقصات من مصدر موثوق -->
-            <source src="https://cdn.coverr.co/videos/coverr-dancing-in-a-club-1573/1080p.mp4" type="video/mp4">
-            <!-- فيديو احتياطي -->
-            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
-            <!-- فيديو ثاني احتياطي -->
-            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" type="video/mp4">
+            <!-- ضع رابط الفيديو الخاص بك هنا -->
+            <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+            <!-- فيديو احتياطي إذا لم يعمل الرابط الأساسي -->
+            <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
             متصفحك لا يدعم تشغيل الفيديو.
         </video>
     </div>
@@ -263,7 +261,7 @@
 
     <!-- ===== المحتوى ===== -->
     <div class="container">
-        <h1 class="title">💃 تطبيق التعارف</h1>
+        <h1 class="title"> تطبيق التعارف</h1>
         <p class="subtitle">انضم إلينا الآن واكتشف تجربة فريدة من نوعها</p>
         
         <!-- ===== زر التحميل ===== -->
@@ -302,7 +300,7 @@
             this.textContent = '🚀 ابدأ الآن';
         });
         btn.addEventListener('mouseleave', function() {
-            this.textContent = '⬇ زيارة الموقع';
+            this.textContent = '⬇ تحميل التطبيق';
         });
     </script>
 </body>
