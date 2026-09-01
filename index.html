@@ -77,7 +77,6 @@
             align-items: center;
             font-weight: 500;
             letter-spacing: 1px;
-            animation: fadeInDown 1s ease-out;
         }
 
         .brand {
@@ -212,7 +211,7 @@
             color: #ffc0d0;
         }
 
-        /* ===== لوحة التحكم المحسنة ===== */
+        /* ===== لوحة التحكم ===== */
         .admin-modal {
             display: none;
             position: fixed;
@@ -297,6 +296,28 @@
             font-size: 1.1rem;
         }
 
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ffc0d0;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #ff4d6d;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+        }
+
         .upload-area {
             border: 2px dashed #ff4d6d;
             border-radius: 10px;
@@ -309,16 +330,6 @@
 
         .upload-area:hover {
             background: rgba(255, 77, 109, 0.1);
-        }
-
-        .upload-btn {
-            background: #ff4d6d;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
         }
 
         .preview-container {
@@ -451,9 +462,24 @@
             margin: 5px;
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-40px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* إشعار صغير */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            z-index: 10001;
+            animation: fadeInUp 0.3s;
+            display: none;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translate(-50%, 20px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
         }
 
         @keyframes pulseGlow {
@@ -488,7 +514,7 @@
 
     <!-- الشريط العلوي -->
     <div class="top-bar">
-        <div class="brand">💃 رقص وتعارف</div>
+        <div class="brand" id="brandText">💃 رقص وتعارف</div>
         <div class="live-badge"><span class="live-dot"></span> جلسات حية الآن</div>
     </div>
 
@@ -503,6 +529,9 @@
     </div>
 
     <div class="footer-note" id="footerNote">اضغط أي إعلان للانضمام الفوري</div>
+
+    <!-- إشعار -->
+    <div class="toast" id="toast"></div>
 
     <!-- شاشة كلمة السر -->
     <div class="password-screen" id="passwordScreen" style="display: none;">
@@ -524,29 +553,40 @@
             </div>
 
             <div class="admin-tabs">
-                <button class="admin-tab active" onclick="switchTab('stats')">📊 الإحصائيات</button>
+                <button class="admin-tab active" onclick="switchTab('content')">📝 المحتوى</button>
                 <button class="admin-tab" onclick="switchTab('buttons')">🔘 الأزرار</button>
                 <button class="admin-tab" onclick="switchTab('background')">🎨 الخلفية</button>
-                <button class="admin-tab" onclick="switchTab('settings')">⚙️ الإعدادات</button>
+                <button class="admin-tab" onclick="switchTab('stats')">📊 الإحصائيات</button>
             </div>
 
-            <!-- قسم الإحصائيات -->
-            <div class="admin-section" id="statsSection">
-                <h3>📊 الإحصائيات</h3>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number" id="totalVisits">0</div>
-                        <div class="stat-label">إجمالي الزيارات</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="uniqueVisitors">0</div>
-                        <div class="stat-label">زوار فريدون</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="todayVisits">0</div>
-                        <div class="stat-label">زيارات اليوم</div>
-                    </div>
+            <!-- قسم المحتوى -->
+            <div class="admin-section" id="contentSection">
+                <h3>📝 تعديل المحتوى</h3>
+                <div class="form-group">
+                    <label>اسم الموقع:</label>
+                    <input type="text" id="editBrand" oninput="updateBrand(this.value)">
                 </div>
+                <div class="form-group">
+                    <label>العنوان الرئيسي:</label>
+                    <input type="text" id="editTitle" oninput="updateTitle(this.value)">
+                </div>
+                <div class="form-group">
+                    <label>الوصف:</label>
+                    <textarea id="editSubtitle" oninput="updateSubtitle(this.value)" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>نص الزر الرئيسي:</label>
+                    <input type="text" id="editMainBtn" oninput="updateMainBtn(this.value)">
+                </div>
+                <div class="form-group">
+                    <label>رابط الزر الرئيسي:</label>
+                    <input type="url" id="editMainLink" placeholder="https://yaya-gamma.vercel.app/">
+                </div>
+                <div class="form-group">
+                    <label>النص السفلي:</label>
+                    <input type="text" id="editFooter" oninput="updateFooter(this.value)">
+                </div>
+                <button class="admin-btn" onclick="saveContentChanges()">💾 حفظ التغييرات</button>
             </div>
 
             <!-- قسم الأزرار -->
@@ -568,12 +608,27 @@
                 <button class="admin-btn" onclick="resetBackground()">↩️ استعادة الافتراضية</button>
             </div>
 
-            <!-- قسم الإعدادات -->
-            <div class="admin-section" id="settingsSection" style="display: none;">
-                <h3>⚙️ الإعدادات</h3>
-                <button class="admin-btn" onclick="saveAllChanges()">💾 حفظ التغييرات</button>
-                <button class="admin-btn" onclick="exportData()">📤 تصدير</button>
-                <button class="admin-btn" onclick="importData()">📥 استيراد</button>
+            <!-- قسم الإحصائيات -->
+            <div class="admin-section" id="statsSection" style="display: none;">
+                <h3>📊 الإحصائيات</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalVisits">0</div>
+                        <div class="stat-label">إجمالي الزيارات</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="uniqueVisitors">0</div>
+                        <div class="stat-label">زوار فريدون</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="todayVisits">0</div>
+                        <div class="stat-label">زيارات اليوم</div>
+                    </div>
+                </div>
+                <div style="margin-top: 15px; text-align: center;">
+                    <button class="admin-btn" onclick="exportData()">📤 تصدير البيانات</button>
+                    <button class="admin-btn" onclick="importData()">📥 استيراد البيانات</button>
+                </div>
             </div>
         </div>
     </div>
@@ -584,6 +639,7 @@
         const MAIN_LINK = "https://enjoysex.top/lp/00004PPC";
         
         let siteData = {
+            brand: "💃 رقص وتعارف",
             mainButton: {
                 text: "⬇ انضم للعالم السري",
                 link: MAIN_LINK
@@ -600,13 +656,23 @@
             background: {
                 type: "video",
                 url: "https://www.w3schools.com/howto/rain.mp4",
-                dataUrl: null // لتخزين الملفات المرفوعة
+                dataUrl: null
             }
         };
 
         let uploadedFile = null;
 
-        // ===== نظام الزيارات المحسن =====
+        // ===== نظام الإشعارات =====
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 2000);
+        }
+
+        // ===== نظام الزيارات =====
         function getDeviceId() {
             let deviceId = localStorage.getItem('deviceId');
             if (!deviceId) {
@@ -619,18 +685,15 @@
         function trackVisit() {
             const deviceId = getDeviceId();
             const now = Date.now();
-            const FIVE_HOURS = 5 * 60 * 60 * 1000; // 5 ساعات بالميلي ثانية
+            const FIVE_HOURS = 5 * 60 * 60 * 1000;
             
             let visits = JSON.parse(localStorage.getItem('visits') || '{"total": 0, "uniqueDevices": {}, "lastVisitTimes": {}}');
             
-            // التحقق من آخر زيارة لهذا الجهاز
             const lastVisit = visits.lastVisitTimes[deviceId] || 0;
             
             if (now - lastVisit >= FIVE_HOURS) {
-                // زيارة جديدة صالحة
                 visits.total++;
                 
-                // تسجيل الزوار الفريدين
                 if (!visits.uniqueDevices[deviceId]) {
                     visits.uniqueDevices[deviceId] = {
                         firstVisit: now,
@@ -640,11 +703,8 @@
                 
                 visits.uniqueDevices[deviceId].visitCount++;
                 visits.uniqueDevices[deviceId].lastVisit = now;
-                
-                // تحديث وقت آخر زيارة
                 visits.lastVisitTimes[deviceId] = now;
                 
-                // حفظ البيانات
                 localStorage.setItem('visits', JSON.stringify(visits));
             }
             
@@ -657,7 +717,6 @@
             const totalVisits = visits.total || 0;
             const uniqueVisitors = Object.keys(visits.uniqueDevices || {}).length;
             
-            // حساب زيارات اليوم
             const today = new Date().toDateString();
             let todayVisits = 0;
             Object.values(visits.uniqueDevices || {}).forEach(device => {
@@ -728,26 +787,23 @@
         }
 
         function switchTab(tab) {
-            // إخفاء جميع الأقسام
-            document.getElementById('statsSection').style.display = 'none';
+            document.getElementById('contentSection').style.display = 'none';
             document.getElementById('buttonsSection').style.display = 'none';
             document.getElementById('backgroundSection').style.display = 'none';
-            document.getElementById('settingsSection').style.display = 'none';
+            document.getElementById('statsSection').style.display = 'none';
             
-            // إظهار القسم المطلوب
-            if (tab === 'stats') {
-                document.getElementById('statsSection').style.display = 'block';
-                updateStats();
+            if (tab === 'content') {
+                document.getElementById('contentSection').style.display = 'block';
             } else if (tab === 'buttons') {
                 document.getElementById('buttonsSection').style.display = 'block';
                 renderButtonList();
             } else if (tab === 'background') {
                 document.getElementById('backgroundSection').style.display = 'block';
-            } else if (tab === 'settings') {
-                document.getElementById('settingsSection').style.display = 'block';
+            } else if (tab === 'stats') {
+                document.getElementById('statsSection').style.display = 'block';
+                updateStats();
             }
             
-            // تحديث التبويبات
             document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
         }
@@ -758,10 +814,48 @@
                 siteData = JSON.parse(savedData);
             }
             
-            document.getElementById('mainTitle').textContent = siteData.title;
-            document.getElementById('mainSubtitle').textContent = siteData.subtitle;
-            document.getElementById('footerNote').textContent = siteData.footerNote;
-            document.getElementById('mainCta').textContent = siteData.mainButton.text;
+            // تحديث حقول الإدخال
+            document.getElementById('editBrand').value = siteData.brand;
+            document.getElementById('editTitle').value = siteData.title;
+            document.getElementById('editSubtitle').value = siteData.subtitle;
+            document.getElementById('editMainBtn').value = siteData.mainButton.text;
+            document.getElementById('editMainLink').value = siteData.mainButton.link;
+            document.getElementById('editFooter').value = siteData.footerNote;
+            
+            // تحديث الموقع
+            applySiteData();
+        }
+
+        // ===== تحديث فوري =====
+        function updateBrand(value) {
+            siteData.brand = value;
+            document.getElementById('brandText').textContent = value;
+        }
+
+        function updateTitle(value) {
+            siteData.title = value;
+            document.getElementById('mainTitle').textContent = value;
+        }
+
+        function updateSubtitle(value) {
+            siteData.subtitle = value;
+            document.getElementById('mainSubtitle').textContent = value;
+        }
+
+        function updateMainBtn(value) {
+            siteData.mainButton.text = value;
+            document.getElementById('mainCta').textContent = value;
+        }
+
+        function updateFooter(value) {
+            siteData.footerNote = value;
+            document.getElementById('footerNote').textContent = value;
+        }
+
+        function saveContentChanges() {
+            siteData.mainButton.link = document.getElementById('editMainLink').value || MAIN_LINK;
+            localStorage.setItem('siteData', JSON.stringify(siteData));
+            showToast('✅ تم حفظ التغييرات');
         }
 
         // ===== إدارة الأزرار =====
@@ -800,7 +894,8 @@
                 });
                 renderButtonList();
                 applySiteData();
-                saveAllChanges();
+                localStorage.setItem('siteData', JSON.stringify(siteData));
+                showToast('✅ تم إضافة الزر');
             }
         }
 
@@ -819,7 +914,8 @@
                 };
                 renderButtonList();
                 applySiteData();
-                saveAllChanges();
+                localStorage.setItem('siteData', JSON.stringify(siteData));
+                showToast('✅ تم تعديل الزر');
             }
         }
 
@@ -828,7 +924,8 @@
                 siteData.buttons.splice(index, 1);
                 renderButtonList();
                 applySiteData();
-                saveAllChanges();
+                localStorage.setItem('siteData', JSON.stringify(siteData));
+                showToast('✅ تم حذف الزر');
             }
         }
 
@@ -845,7 +942,6 @@
                     name: file.name
                 };
                 
-                // عرض معاينة
                 const previewContainer = document.getElementById('previewContainer');
                 previewContainer.innerHTML = '';
                 
@@ -863,13 +959,15 @@
                     video.style.maxHeight = '200px';
                     previewContainer.appendChild(video);
                 }
+                
+                showToast('✅ تم تحميل الملف');
             };
             reader.readAsDataURL(file);
         }
 
         function applyUploadedBackground() {
             if (!uploadedFile) {
-                alert('⚠️ اختر ملفاً أولاً');
+                showToast('⚠️ اختر ملفاً أولاً');
                 return;
             }
             
@@ -880,8 +978,8 @@
             };
             
             applyBackground();
-            saveAllChanges();
-            alert('✅ تم تطبيق الخلفية بنجاح!');
+            localStorage.setItem('siteData', JSON.stringify(siteData));
+            showToast('✅ تم تطبيق الخلفية');
         }
 
         function resetBackground() {
@@ -893,8 +991,8 @@
             uploadedFile = null;
             document.getElementById('previewContainer').innerHTML = '';
             applyBackground();
-            saveAllChanges();
-            alert('✅ تم استعادة الخلفية الافتراضية');
+            localStorage.setItem('siteData', JSON.stringify(siteData));
+            showToast('✅ تم استعادة الخلفية');
         }
 
         function applyBackground() {
@@ -922,17 +1020,7 @@
             }
         }
 
-        // ===== حفظ البيانات =====
-        function saveAllChanges() {
-            siteData.title = document.getElementById('mainTitle').textContent;
-            siteData.subtitle = document.getElementById('mainSubtitle').textContent;
-            siteData.footerNote = document.getElementById('footerNote').textContent;
-            siteData.mainButton.text = document.getElementById('mainCta').textContent;
-            
-            localStorage.setItem('siteData', JSON.stringify(siteData));
-            alert('✅ تم حفظ التغييرات!');
-        }
-
+        // ===== تصدير واستيراد =====
         function exportData() {
             const dataStr = JSON.stringify(siteData, null, 2);
             const blob = new Blob([dataStr], { type: 'application/json' });
@@ -942,6 +1030,7 @@
             a.download = 'site-data.json';
             a.click();
             URL.revokeObjectURL(url);
+            showToast('✅ تم تصدير البيانات');
         }
 
         function importData() {
@@ -957,9 +1046,9 @@
                         localStorage.setItem('siteData', JSON.stringify(siteData));
                         loadAdminData();
                         applySiteData();
-                        alert('✅ تم استيراد البيانات!');
+                        showToast('✅ تم استيراد البيانات');
                     } catch (error) {
-                        alert('❌ خطأ في الاستيراد!');
+                        showToast('❌ خطأ في الاستيراد');
                     }
                 };
                 reader.readAsText(file);
@@ -971,6 +1060,7 @@
         function applySiteData() {
             applyBackground();
             
+            document.getElementById('brandText').textContent = siteData.brand;
             document.getElementById('mainTitle').textContent = siteData.title;
             document.getElementById('mainSubtitle').textContent = siteData.subtitle;
             document.getElementById('footerNote').textContent = siteData.footerNote;
@@ -1016,7 +1106,7 @@
                 mainBtn.textContent = siteData.mainButton.text;
             });
             
-            setInterval(updateStats, 300000); // تحديث كل 5 دقائق
+            setInterval(updateStats, 300000);
         }
 
         window.addEventListener('load', initializeSite);
