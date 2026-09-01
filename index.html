@@ -31,7 +31,8 @@
             overflow: hidden;
         }
 
-        .video-background video {
+        .video-background video,
+        .video-background img {
             min-width: 100%;
             min-height: 100%;
             width: auto;
@@ -42,6 +43,12 @@
             transform: translate(-50%, -50%);
             object-fit: cover;
             filter: brightness(0.55) saturate(1.2);
+        }
+
+        .video-background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* ===== طبقة تظليل بنفسجية دافئة ===== */
@@ -123,6 +130,8 @@
             text-shadow: 0 0 30px rgba(255, 0, 150, 0.5);
             letter-spacing: 3px;
             animation: fadeInDown 1.2s ease-out;
+            cursor: default;
+            user-select: none;
         }
 
         .subtitle {
@@ -240,26 +249,277 @@
             letter-spacing: 2px;
             color: #ffc0d0;
             text-shadow: 0 0 8px black;
+            cursor: default;
+            user-select: none;
+        }
+
+        /* ===== لوحة التحكم ===== */
+        .admin-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            overflow-y: auto;
+            animation: fadeIn 0.3s;
+        }
+
+        .admin-modal.active {
+            display: block;
+        }
+
+        .admin-container {
+            background: linear-gradient(145deg, #1a0a2e, #0d0015);
+            border: 2px solid #ff4d6d;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 50px auto;
+            position: relative;
+            box-shadow: 0 0 50px rgba(255, 0, 100, 0.5);
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ff4d6d;
+        }
+
+        .admin-title {
+            font-size: 2rem;
+            color: #ff4d6d;
+            font-weight: 800;
+        }
+
+        .close-admin {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .close-admin:hover {
+            transform: rotate(90deg);
+            background: #ff1a5c;
+        }
+
+        .admin-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 77, 109, 0.3);
+        }
+
+        .admin-section h3 {
+            color: #ffb6c1;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ffc0d0;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #ff4d6d;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .admin-btn {
+            background: linear-gradient(45deg, #ff1a5c, #b300ff);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 0, 100, 0.5);
+        }
+
+        .btn-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .btn-item .btn-info {
+            flex: 1;
+            margin-left: 10px;
+        }
+
+        .btn-item .btn-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-edit, .btn-delete {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-edit {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #f44336;
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            color: #ff4d6d;
+            font-weight: 800;
+        }
+
+        .stat-label {
+            color: #ffc0d0;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* ===== شاشة كلمة السر ===== */
+        .password-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .password-box {
+            background: linear-gradient(145deg, #1a0a2e, #0d0015);
+            border: 2px solid #ff4d6d;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(255, 0, 100, 0.7);
+        }
+
+        .password-box input {
+            width: 100%;
+            padding: 15px;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #ff4d6d;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .password-box button {
+            background: linear-gradient(45deg, #ff1a5c, #b300ff);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .password-box button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 0, 100, 0.6);
         }
 
         /* ===== الحركات ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-40px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
         @keyframes pulseGlow {
             0% { box-shadow: 0 15px 40px rgba(200,0,120,0.7), 0 0 0 0 rgba(255,0,102,0.5); }
             70% { box-shadow: 0 15px 40px rgba(200,0,120,0.7), 0 0 0 25px rgba(255,0,102,0); }
             100% { box-shadow: 0 15px 40px rgba(200,0,120,0.7), 0 0 0 0 rgba(255,0,102,0); }
         }
+
         @keyframes shineMove {
             0% { transform: rotate(45deg) translateX(-100%); }
             100% { transform: rotate(45deg) translateX(100%); }
         }
+
         @keyframes livePulse {
             0%,100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.5; transform: scale(1.4); }
@@ -271,17 +531,19 @@
             .cta-btn { padding: 15px 40px; font-size: 1.4rem; }
             .ad-card { padding: 8px 15px; }
             .brand { font-size: 1.2rem; }
+            .admin-container {
+                margin: 20px;
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
 
     <!-- ===== خلفية فيديو راقصات ===== -->
-    <div class="video-background">
-        <video autoplay muted loop playsinline>
-            <!-- فيديو راقصات (مثال من w3schools مؤقتًا - استبدله بفيديو راقصين/راقصات) -->
+    <div class="video-background" id="videoBackground">
+        <video autoplay muted loop playsinline id="bgVideo">
             <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
-            <!-- بديل: يمكن استخدام رابط لفيديو راقصات حقيقي -->
             <source src="https://cdn.pixabay.com/video/2021/08/20/86050-591436158_large.mp4" type="video/mp4">
             متصفحك لا يدعم الفيديو.
         </video>
@@ -298,68 +560,490 @@
 
     <!-- المحتوى الرئيسي -->
     <div class="container">
-        <h1 class="title">ليالي الرقص</h1>
-        <p class="subtitle">🔥 تعارف · دروس خاصة · إيقاع لا يتوقف 🔥</p>
+        <h1 class="title" id="mainTitle">ليالي الرقص</h1>
+        <p class="subtitle" id="mainSubtitle">🔥 تعارف · دروس خاصة · إيقاع لا يتوقف 🔥</p>
 
         <!-- زر رئيسي -->
         <a href="#" class="cta-btn" id="mainCta">⬇ انضم للعالم السري</a>
 
         <!-- إعلانات إغرائية عند الضغط تحول للرابط -->
-        <div class="teaser-banner">
-            <div class="ad-card special" data-link="https://enjoysex.top/lp/00004PPC">
-                <span class="ad-icon">💋</span>
-                <span class="ad-text">راقصات مباشر</span>
+        <div class="teaser-banner" id="teaserBanner">
+            <!-- ستتم إدارة الأزرار من هنا -->
+        </div>
+    </div>
+
+    <div class="footer-note" id="footerNote">اضغط أي إعلان للانضمام الفوري</div>
+
+    <!-- ===== شاشة كلمة السر ===== -->
+    <div class="password-screen" id="passwordScreen" style="display: none;">
+        <div class="password-box">
+            <h2 style="color: #ff4d6d; margin-bottom: 20px;">🔐 كلمة السر</h2>
+            <input type="password" id="passwordInput" placeholder="أدخل كلمة السر">
+            <br>
+            <button onclick="checkPassword()">دخول</button>
+            <button onclick="closePasswordScreen()" style="margin-top: 10px; background: #666;">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- ===== لوحة التحكم ===== -->
+    <div class="admin-modal" id="adminModal">
+        <div class="admin-container">
+            <div class="admin-header">
+                <h2 class="admin-title">⚙️ لوحة التحكم</h2>
+                <button class="close-admin" onclick="closeAdmin()">×</button>
             </div>
-            <div class="ad-card" data-link="https://enjoysex.top/lp/00004PPC">
-                <span class="ad-icon">🎵</span>
-                <span class="ad-text">تعلم السالسا</span>
+
+            <!-- إحصائيات -->
+            <div class="admin-section">
+                <h3>📊 الإحصائيات</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalVisits">0</div>
+                        <div class="stat-label">إجمالي الزيارات</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="uniqueVisitors">0</div>
+                        <div class="stat-label">زوار فريدون</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="todayVisits">0</div>
+                        <div class="stat-label">زيارات اليوم</div>
+                    </div>
+                </div>
             </div>
-            <div class="ad-card" data-link="https://enjoysex.top/lp/00004PPC">
-                <span class="ad-icon">❤️‍🔥</span>
-                <span class="ad-text">ليالي تعارف</span>
+
+            <!-- إدارة الأزرار -->
+            <div class="admin-section">
+                <h3>🔘 إدارة الأزرار</h3>
+                <div class="btn-list" id="btnList"></div>
+                <button class="admin-btn" onclick="addNewButton()">➕ إضافة زر جديد</button>
             </div>
-            <div class="ad-card" data-link="https://enjoysex.top/lp/00004PPC">
-                <span class="ad-icon">✨</span>
-                <span class="ad-text">عروض خاصة</span>
+
+            <!-- تغيير الخلفية -->
+            <div class="admin-section">
+                <h3>🎨 تغيير الخلفية</h3>
+                <div class="form-group">
+                    <label>رابط فيديو:</label>
+                    <input type="url" id="videoUrl" placeholder="https://example.com/video.mp4">
+                </div>
+                <div class="form-group">
+                    <label>رابط صورة:</label>
+                    <input type="url" id="imageUrl" placeholder="https://example.com/image.jpg">
+                </div>
+                <button class="admin-btn" onclick="changeBackground()">🔄 تحديث الخلفية</button>
+                <button class="admin-btn" onclick="resetBackground()">↩️ استعادة الافتراضية</button>
+            </div>
+
+            <!-- حفظ التغييرات -->
+            <div class="admin-section">
+                <button class="admin-btn" onclick="saveAllChanges()">💾 حفظ جميع التغييرات</button>
+                <button class="admin-btn" onclick="exportData()">📤 تصدير البيانات</button>
+                <button class="admin-btn" onclick="importData()">📥 استيراد البيانات</button>
             </div>
         </div>
     </div>
 
-    <div class="footer-note">اضغط أي إعلان للانضمام الفوري</div>
-
     <script>
-        // الرابط الأساسي
+        // ===== الإعدادات والبيانات =====
+        const ADMIN_PASSWORD = "admin123"; // كلمة السر الافتراضية
         const MAIN_LINK = "https://enjoysex.top/lp/00004PPC";
+        
+        // بيانات افتراضية
+        let siteData = {
+            mainButton: {
+                text: "⬇ انضم للعالم السري",
+                link: MAIN_LINK
+            },
+            title: "ليالي الرقص",
+            subtitle: "🔥 تعارف · دروس خاصة · إيقاع لا يتوقف 🔥",
+            footerNote: "اضغط أي إعلان للانضمام الفوري",
+            buttons: [
+                { icon: "💋", text: "راقصات مباشر", link: MAIN_LINK, special: true },
+                { icon: "🎵", text: "تعلم السالسا", link: MAIN_LINK, special: false },
+                { icon: "❤️‍🔥", text: "ليالي تعارف", link: MAIN_LINK, special: false },
+                { icon: "✨", text: "عروض خاصة", link: MAIN_LINK, special: false }
+            ],
+            background: {
+                type: "video", // video أو image
+                url: "https://www.w3schools.com/howto/rain.mp4"
+            }
+        };
 
-        // تحديث الزر الرئيسي
-        document.getElementById('mainCta').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.open(MAIN_LINK, '_blank');
-        });
+        // ===== نظام الزيارات =====
+        function generateVisitorId() {
+            let visitorId = localStorage.getItem('visitorId');
+            if (!visitorId) {
+                visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('visitorId', visitorId);
+            }
+            return visitorId;
+        }
 
-        // جميع البطاقات الإعلانية تنقل إلى الرابط
-        const adCards = document.querySelectorAll('.ad-card');
-        adCards.forEach(card => {
-            card.addEventListener('click', function(e) {
-                e.preventDefault();
-                const link = this.getAttribute('data-link') || MAIN_LINK;
-                window.open(link, '_blank');
+        function getClientIP() {
+            // محاولة الحصول على IP من مصادر مختلفة
+            return new Promise((resolve) => {
+                // طريقة بديلة: توليد معرف فريد للجهاز
+                let deviceId = localStorage.getItem('deviceId');
+                if (!deviceId) {
+                    deviceId = 'device_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                    localStorage.setItem('deviceId', deviceId);
+                }
+                resolve(deviceId);
             });
+        }
+
+        async function trackVisit() {
+            const visitorId = generateVisitorId();
+            const deviceId = await getClientIP();
+            
+            let visits = JSON.parse(localStorage.getItem('visits') || '{"total": 0, "unique": [], "today": [], "lastVisit": ""}');
+            
+            const today = new Date().toDateString();
+            
+            // إجمالي الزيارات
+            visits.total++;
+            
+            // الزوار الفريدون
+            if (!visits.unique.includes(deviceId)) {
+                visits.unique.push(deviceId);
+            }
+            
+            // زيارات اليوم
+            if (visits.lastVisit !== today) {
+                visits.today = [];
+                visits.lastVisit = today;
+            }
+            if (!visits.today.includes(visitorId)) {
+                visits.today.push(visitorId);
+            }
+            
+            localStorage.setItem('visits', JSON.stringify(visits));
+            
+            // تحديث الإحصائيات في اللوحة إذا كانت مفتوحة
+            updateStats();
+        }
+
+        function updateStats() {
+            const visits = JSON.parse(localStorage.getItem('visits') || '{"total": 0, "unique": [], "today": [], "lastVisit": ""}');
+            
+            document.getElementById('totalVisits').textContent = visits.total || 0;
+            document.getElementById('uniqueVisitors').textContent = visits.unique ? visits.unique.length : 0;
+            document.getElementById('todayVisits').textContent = visits.today ? visits.today.length : 0;
+        }
+
+        // ===== إدارة النقرات السرية =====
+        let clickCount = 0;
+        let clickTimer = null;
+
+        document.getElementById('mainTitle').addEventListener('click', function() {
+            clickCount++;
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+                clickCount = 0;
+            }, 3000);
+            
+            if (clickCount >= 5) {
+                clickCount = 0;
+                showPasswordScreen();
+            }
         });
 
-        // تأثير تفاعلي للزر الرئيسي عند التحويم (تغيير النص)
-        const mainBtn = document.getElementById('mainCta');
-        mainBtn.addEventListener('mouseenter', () => {
-            mainBtn.textContent = '🚀 ابدأ الآن';
-        });
-        mainBtn.addEventListener('mouseleave', () => {
-            mainBtn.textContent = '⬇ انضم للعالم السري';
+        function showPasswordScreen() {
+            document.getElementById('passwordScreen').style.display = 'flex';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('passwordInput').focus();
+        }
+
+        function closePasswordScreen() {
+            document.getElementById('passwordScreen').style.display = 'none';
+        }
+
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            if (password === ADMIN_PASSWORD) {
+                closePasswordScreen();
+                openAdmin();
+            } else {
+                alert('❌ كلمة السر خاطئة!');
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        }
+
+        // إدخال كلمة السر بالضغط على Enter
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
         });
 
-        // وميض إضافي عند تحميل الصفحة
-        window.addEventListener('load', () => {
-            document.querySelector('.title').style.animation = 'fadeInDown 1.2s ease-out';
-        });
+        // ===== فتح وإغلاق لوحة التحكم =====
+        function openAdmin() {
+            document.getElementById('adminModal').classList.add('active');
+            loadAdminData();
+            updateStats();
+        }
+
+        function closeAdmin() {
+            document.getElementById('adminModal').classList.remove('active');
+        }
+
+        // ===== تحميل البيانات في لوحة التحكم =====
+        function loadAdminData() {
+            // تحميل البيانات المحفوظة
+            const savedData = localStorage.getItem('siteData');
+            if (savedData) {
+                siteData = JSON.parse(savedData);
+            }
+            
+            // تحديث الأزرار في القائمة
+            renderButtonList();
+            
+            // تحديث حقول الخلفية
+            document.getElementById('videoUrl').value = siteData.background.type === 'video' ? siteData.background.url : '';
+            document.getElementById('imageUrl').value = siteData.background.type === 'image' ? siteData.background.url : '';
+            
+            // تحديث النصوص
+            document.getElementById('mainTitle').textContent = siteData.title;
+            document.getElementById('mainSubtitle').textContent = siteData.subtitle;
+            document.getElementById('footerNote').textContent = siteData.footerNote;
+            document.getElementById('mainCta').textContent = siteData.mainButton.text;
+        }
+
+        function renderButtonList() {
+            const btnList = document.getElementById('btnList');
+            btnList.innerHTML = '';
+            
+            siteData.buttons.forEach((btn, index) => {
+                const btnItem = document.createElement('div');
+                btnItem.className = 'btn-item';
+                btnItem.innerHTML = `
+                    <div class="btn-info">
+                        <strong>${btn.icon}</strong> ${btn.text} - <small>${btn.link}</small>
+                        ${btn.special ? ' <span style="color: #ff4d6d;">(مميز)</span>' : ''}
+                    </div>
+                    <div class="btn-actions">
+                        <button class="btn-edit" onclick="editButton(${index})">✏️ تعديل</button>
+                        <button class="btn-delete" onclick="deleteButton(${index})">🗑️ حذف</button>
+                    </div>
+                `;
+                btnList.appendChild(btnItem);
+            });
+        }
+
+        // ===== إدارة الأزرار =====
+        function addNewButton() {
+            const icon = prompt('أدخل الأيقونة (مثال: 💃):', '🎯');
+            const text = prompt('أدخل نص الزر:', 'زر جديد');
+            const link = prompt('أدخل الرابط:', MAIN_LINK);
+            
+            if (icon && text && link) {
+                siteData.buttons.push({
+                    icon: icon,
+                    text: text,
+                    link: link,
+                    special: false
+                });
+                renderButtonList();
+                applySiteData();
+                saveAllChanges();
+            }
+        }
+
+        function editButton(index) {
+            const btn = siteData.buttons[index];
+            const icon = prompt('أدخل الأيقونة:', btn.icon);
+            const text = prompt('أدخل نص الزر:', btn.text);
+            const link = prompt('أدخل الرابط:', btn.link);
+            
+            if (icon && text && link) {
+                siteData.buttons[index] = {
+                    icon: icon,
+                    text: text,
+                    link: link,
+                    special: btn.special
+                };
+                renderButtonList();
+                applySiteData();
+                saveAllChanges();
+            }
+        }
+
+        function deleteButton(index) {
+            if (confirm('هل أنت متأكد من حذف هذا الزر؟')) {
+                siteData.buttons.splice(index, 1);
+                renderButtonList();
+                applySiteData();
+                saveAllChanges();
+            }
+        }
+
+        // ===== تغيير الخلفية =====
+        function changeBackground() {
+            const videoUrl = document.getElementById('videoUrl').value;
+            const imageUrl = document.getElementById('imageUrl').value;
+            
+            if (videoUrl) {
+                siteData.background = {
+                    type: 'video',
+                    url: videoUrl
+                };
+            } else if (imageUrl) {
+                siteData.background = {
+                    type: 'image',
+                    url: imageUrl
+                };
+            } else {
+                alert('⚠️ أدخل رابط فيديو أو صورة');
+                return;
+            }
+            
+            applyBackground();
+            saveAllChanges();
+        }
+
+        function resetBackground() {
+            siteData.background = {
+                type: 'video',
+                url: 'https://www.w3schools.com/howto/rain.mp4'
+            };
+            document.getElementById('videoUrl').value = '';
+            document.getElementById('imageUrl').value = '';
+            applyBackground();
+            saveAllChanges();
+        }
+
+        function applyBackground() {
+            const bgContainer = document.getElementById('videoBackground');
+            bgContainer.innerHTML = '';
+            
+            if (siteData.background.type === 'video') {
+                const video = document.createElement('video');
+                video.autoplay = true;
+                video.muted = true;
+                video.loop = true;
+                video.playsInline = true;
+                video.src = siteData.background.url;
+                bgContainer.appendChild(video);
+            } else {
+                const img = document.createElement('img');
+                img.src = siteData.background.url;
+                img.alt = 'Background';
+                bgContainer.appendChild(img);
+            }
+        }
+
+        // ===== حفظ واستيراد/تصدير البيانات =====
+        function saveAllChanges() {
+            // تحديث النصوص
+            siteData.title = document.getElementById('mainTitle').textContent;
+            siteData.subtitle = document.getElementById('mainSubtitle').textContent;
+            siteData.footerNote = document.getElementById('footerNote').textContent;
+            siteData.mainButton.text = document.getElementById('mainCta').textContent;
+            
+            localStorage.setItem('siteData', JSON.stringify(siteData));
+            alert('✅ تم حفظ جميع التغييرات بنجاح!');
+        }
+
+        function exportData() {
+            const dataStr = JSON.stringify(siteData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'site-data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        siteData = JSON.parse(event.target.result);
+                        localStorage.setItem('siteData', JSON.stringify(siteData));
+                        loadAdminData();
+                        applySiteData();
+                        alert('✅ تم استيراد البيانات بنجاح!');
+                    } catch (error) {
+                        alert('❌ خطأ في استيراد البيانات!');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        // ===== تطبيق البيانات على الموقع =====
+        function applySiteData() {
+            // تطبيق الخلفية
+            applyBackground();
+            
+            // تطبيق النصوص
+            document.getElementById('mainTitle').textContent = siteData.title;
+            document.getElementById('mainSubtitle').textContent = siteData.subtitle;
+            document.getElementById('footerNote').textContent = siteData.footerNote;
+            document.getElementById('mainCta').textContent = siteData.mainButton.text;
+            
+            // تطبيق الأزرار
+            const teaserBanner = document.getElementById('teaserBanner');
+            teaserBanner.innerHTML = '';
+            
+            siteData.buttons.forEach(btn => {
+                const adCard = document.createElement('div');
+                adCard.className = 'ad-card' + (btn.special ? ' special' : '');
+                adCard.setAttribute('data-link', btn.link);
+                adCard.innerHTML = `
+                    <span class="ad-icon">${btn.icon}</span>
+                    <span class="ad-text">${btn.text}</span>
+                `;
+                adCard.addEventListener('click', function() {
+                    window.open(btn.link, '_blank');
+                });
+                teaserBanner.appendChild(adCard);
+            });
+        }
+
+        // ===== تهيئة الموقع =====
+        function initializeSite() {
+            // تحميل البيانات المحفوظة
+            const savedData = localStorage.getItem('siteData');
+            if (savedData) {
+                siteData = JSON.parse(savedData);
+            }
+            
+            // تطبيق البيانات
+            applySiteData();
+            
+            // تتبع الزيارة
+            trackVisit();
+            
+            // إعداد الزر الرئيسي
+            document.getElementById('mainCta').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open(siteData.mainButton.link, '_blank');
+            });
+            
+            // تأثير تفاعلي للزر الرئيسي عند التحويم
+            const mainBtn = document.getElementById('mainCta');
+            mainBtn.addEventListener('mouseenter', () => {
+                mainBtn.textContent = '🚀 ابدأ الآن';
+            });
+            mainBtn.addEventListener('mouseleave', () => {
+                mainBtn.textContent = siteData.mainButton.text;
+            });
+            
+            // تحديث الإحصائيات كل دقيقة
+            setInterval(updateStats, 60000);
+        }
+
+        // بدء التهيئة عند تحميل الصفحة
+        window.addEventListener('load', initializeSite);
     </script>
 </body>
 </html>
