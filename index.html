@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>✨ ليالي الرقص | تعارف وتعليم ✨</title>
     <style>
-        /* نفس الستايل السابق */
         * {
             margin: 0;
             padding: 0;
@@ -311,65 +310,6 @@
             font-size: 1rem;
         }
 
-        .upload-area {
-            border: 2px dashed #ff4d6d;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            margin: 10px 0;
-            transition: all 0.3s;
-        }
-
-        .upload-area:hover {
-            background: rgba(255, 77, 109, 0.1);
-        }
-
-        .preview-container {
-            margin: 10px 0;
-            text-align: center;
-        }
-
-        .preview-container img,
-        .preview-container video {
-            max-width: 100%;
-            max-height: 150px;
-            border-radius: 10px;
-        }
-
-        .btn-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.08);
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-        }
-
-        .btn-actions {
-            display: flex;
-            gap: 5px;
-        }
-
-        .btn-edit, .btn-delete {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        .btn-edit {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .btn-delete {
-            background: #f44336;
-            color: white;
-        }
-
         .admin-btn {
             background: linear-gradient(45deg, #ff1a5c, #b300ff);
             color: white;
@@ -385,30 +325,6 @@
         .admin-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 0, 100, 0.5);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 1.5rem;
-            color: #ff4d6d;
-            font-weight: 800;
-        }
-
-        .stat-label {
-            color: #ffc0d0;
-            font-size: 0.8rem;
         }
 
         .password-screen {
@@ -500,17 +416,14 @@
 </head>
 <body>
 
-    <!-- الخلفية -->
     <div class="video-background" id="videoBackground"></div>
     <div class="overlay"></div>
 
-    <!-- الشريط العلوي -->
     <div class="top-bar">
         <div class="brand" id="brandText">💃 رقص وتعارف</div>
         <div class="live-badge"><span class="live-dot"></span> جلسات حية الآن</div>
     </div>
 
-    <!-- المحتوى الرئيسي -->
     <div class="container">
         <h1 class="title" id="mainTitle">ليالي الرقص</h1>
         <p class="subtitle" id="mainSubtitle">🔥 تعارف · دروس خاصة · إيقاع لا يتوقف 🔥</p>
@@ -522,10 +435,8 @@
 
     <div class="footer-note" id="footerNote">اضغط أي إعلان للانضمام الفوري</div>
 
-    <!-- إشعار -->
     <div class="toast" id="toast"></div>
 
-    <!-- شاشة كلمة السر -->
     <div class="password-screen" id="passwordScreen" style="display: none;">
         <div class="password-box">
             <h2 style="color: #ff4d6d; margin-bottom: 15px;">🔐 كلمة السر</h2>
@@ -536,7 +447,6 @@
         </div>
     </div>
 
-    <!-- لوحة التحكم -->
     <div class="admin-modal" id="adminModal">
         <div class="admin-container">
             <div class="admin-header">
@@ -546,156 +456,48 @@
 
             <div class="admin-tabs">
                 <button class="admin-tab active" onclick="switchTab('content')">📝 المحتوى</button>
-                <button class="admin-tab" onclick="switchTab('buttons')">🔘 الأزرار</button>
-                <button class="admin-tab" onclick="switchTab('background')">🎨 الخلفية</button>
             </div>
 
-            <!-- قسم المحتوى -->
             <div class="admin-section" id="contentSection">
                 <h3>📝 تعديل المحتوى</h3>
                 <div class="form-group">
                     <label>اسم الموقع:</label>
-                    <input type="text" id="editBrand" placeholder="💃 رقص وتعارف">
+                    <input type="text" id="editBrand" value="💃 رقص وتعارف">
                 </div>
                 <div class="form-group">
                     <label>العنوان الرئيسي:</label>
-                    <input type="text" id="editTitle" placeholder="ليالي الرقص">
+                    <input type="text" id="editTitle" value="ليالي الرقص">
                 </div>
                 <div class="form-group">
                     <label>الوصف:</label>
-                    <textarea id="editSubtitle" rows="3" placeholder="🔥 تعارف · دروس خاصة · إيقاع لا يتوقف 🔥"></textarea>
+                    <textarea id="editSubtitle" rows="3">🔥 تعارف · دروس خاصة · إيقاع لا يتوقف 🔥</textarea>
                 </div>
                 <div class="form-group">
                     <label>نص الزر الرئيسي:</label>
-                    <input type="text" id="editMainBtn" placeholder="⬇ انضم للعالم السري">
+                    <input type="text" id="editMainBtn" value="⬇ انضم للعالم السري">
                 </div>
                 <div class="form-group">
                     <label>رابط الزر الرئيسي:</label>
-                    <input type="url" id="editMainLink" placeholder="https://yaya-gamma.vercel.app/">
+                    <input type="url" id="editMainLink" value="https://yaya-gamma.vercel.app/">
                 </div>
                 <div class="form-group">
                     <label>النص السفلي:</label>
-                    <input type="text" id="editFooter" placeholder="اضغط أي إعلان للانضمام الفوري">
+                    <input type="text" id="editFooter" value="اضغط أي إعلان للانضمام الفوري">
                 </div>
-                <button class="admin-btn" onclick="saveToGitHub()">💾 حفظ ونشر التغييرات</button>
-            </div>
-
-            <!-- قسم الأزرار -->
-            <div class="admin-section" id="buttonsSection" style="display: none;">
-                <h3>🔘 إدارة الأزرار</h3>
-                <div id="btnList"></div>
-                <button class="admin-btn" onclick="addNewButton()">➕ إضافة زر</button>
-            </div>
-
-            <!-- قسم الخلفية -->
-            <div class="admin-section" id="backgroundSection" style="display: none;">
-                <h3>🎨 تغيير الخلفية</h3>
-                <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-                    <p>📁 اضغط لاختيار فيديو أو صورة من جهازك</p>
-                    <input type="file" id="fileInput" accept="video/*,image/*" style="display: none;" onchange="handleFileUpload(event)">
-                </div>
-                <div class="preview-container" id="previewContainer"></div>
-                <button class="admin-btn" onclick="saveBackgroundToGitHub()">✅ حفظ ونشر الخلفية</button>
+                <button class="admin-btn" onclick="saveToGitHub()">💾 حفظ ونشر</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ===== إعدادات GitHub =====
-        const GITHUB_TOKEN = "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"; // ضع توكن GitHub هنا
-        const GITHUB_USERNAME = "mazo12"; // ضع اسم المستخدم هنا
-        const GITHUB_REPO = "mazo12"; // ضع اسم المستودع هنا
-        const FILE_PATH = "index.html"; // مسار الملف
+        const GITHUB_TOKEN = "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";
+        const GITHUB_USERNAME = "mazo12";
+        const GITHUB_REPO = "mazo12";
+        const FILE_PATH = "index.html";
         
-        const ADMIN_PASSWORD = "mazo";
+        const ADMIN_PASSWORD = "admin123";
         const MAIN_LINK = "https://yaya-gamma.vercel.app/";
-        
-        let currentData = {
-            brand: "💃 رقص وتعارف",
-            title: "ليالي الرقص",
-            subtitle: "🔥 تعارف · دروس خاصة · إيقاع لا يتوقف 🔥",
-            mainButtonText: "⬇ انضم للعالم السري",
-            mainButtonLink: MAIN_LINK,
-            footerNote: "اضغط أي إعلان للانضمام الفوري",
-            buttons: [
-                { icon: "💋", text: "راقصات مباشر", link: MAIN_LINK, special: true },
-                { icon: "🎵", text: "تعلم السالسا", link: MAIN_LINK, special: false },
-                { icon: "❤️‍🔥", text: "ليالي تعارف", link: MAIN_LINK, special: false },
-                { icon: "✨", text: "عروض خاصة", link: MAIN_LINK, special: false }
-            ],
-            background: {
-                type: "video",
-                url: "https://www.w3schools.com/howto/rain.mp4"
-            }
-        };
 
-        // ===== دالة الحفظ إلى GitHub =====
-        async function saveToGitHub() {
-            try {
-                // تحديث البيانات من الحقول
-                currentData.brand = document.getElementById('editBrand').value || currentData.brand;
-                currentData.title = document.getElementById('editTitle').value || currentData.title;
-                currentData.subtitle = document.getElementById('editSubtitle').value || currentData.subtitle;
-                currentData.mainButtonText = document.getElementById('editMainBtn').value || currentData.mainButtonText;
-                currentData.mainButtonLink = document.getElementById('editMainLink').value || currentData.mainButtonLink;
-                currentData.footerNote = document.getElementById('editFooter').value || currentData.footerNote;
-
-                // الحصول على الملف الحالي من GitHub
-                const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${FILE_PATH}`, {
-                    headers: {
-                        'Authorization': `token ${GITHUB_TOKEN}`
-                    }
-                });
-                
-                const fileData = await response.json();
-                const currentContent = atob(fileData.content);
-                
-                // تعديل المحتوى
-                let newContent = currentContent;
-                
-                // استبدال القيم في الكود
-                newContent = newContent.replace(/brand: "[^"]*"/, `brand: "${currentData.brand}"`);
-                newContent = newContent.replace(/title: "[^"]*"/, `title: "${currentData.title}"`);
-                newContent = newContent.replace(/subtitle: "[^"]*"/, `subtitle: "${currentData.subtitle}"`);
-                newContent = newContent.replace(/mainButtonText: "[^"]*"/, `mainButtonText: "${currentData.mainButtonText}"`);
-                newContent = newContent.replace(/mainButtonLink: "[^"]*"/, `mainButtonLink: "${currentData.mainButtonLink}"`);
-                newContent = newContent.replace(/footerNote: "[^"]*"/, `footerNote: "${currentData.footerNote}"`);
-
-                // تحديث الملف في GitHub
-                const updateResponse = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${FILE_PATH}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${GITHUB_TOKEN}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        message: 'Update site content from admin panel',
-                        content: btoa(unescape(encodeURIComponent(newContent))),
-                        sha: fileData.sha
-                    })
-                });
-
-                if (updateResponse.ok) {
-                    showToast('✅ تم حفظ التغييرات! سيتم النشر خلال دقائق');
-                    applyChanges();
-                } else {
-                    showToast('❌ خطأ في الحفظ');
-                }
-            } catch (error) {
-                showToast('❌ خطأ: ' + error.message);
-            }
-        }
-
-        // ===== تطبيق التغييرات محلياً =====
-        function applyChanges() {
-            document.getElementById('brandText').textContent = currentData.brand;
-            document.getElementById('mainTitle').textContent = currentData.title;
-            document.getElementById('mainSubtitle').textContent = currentData.subtitle;
-            document.getElementById('mainCta').textContent = currentData.mainButtonText;
-            document.getElementById('footerNote').textContent = currentData.footerNote;
-        }
-
-        // ===== باقي الدوال =====
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.textContent = message;
@@ -705,131 +507,85 @@
             }, 3000);
         }
 
-        function switchTab(tab) {
-            document.getElementById('contentSection').style.display = 'none';
-            document.getElementById('buttonsSection').style.display = 'none';
-            document.getElementById('backgroundSection').style.display = 'none';
-            
-            if (tab === 'content') {
-                document.getElementById('contentSection').style.display = 'block';
-            } else if (tab === 'buttons') {
-                document.getElementById('buttonsSection').style.display = 'block';
-                renderButtonList();
-            } else if (tab === 'background') {
-                document.getElementById('backgroundSection').style.display = 'block';
-            }
-            
-            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-        }
+        async function saveToGitHub() {
+            try {
+                const brand = document.getElementById('editBrand').value;
+                const title = document.getElementById('editTitle').value;
+                const subtitle = document.getElementById('editSubtitle').value;
+                const mainBtnText = document.getElementById('editMainBtn').value;
+                const mainBtnLink = document.getElementById('editMainLink').value;
+                const footerNote = document.getElementById('editFooter').value;
 
-        function renderButtonList() {
-            const btnList = document.getElementById('btnList');
-            btnList.innerHTML = '';
-            
-            currentData.buttons.forEach((btn, index) => {
-                const btnItem = document.createElement('div');
-                btnItem.className = 'btn-item';
-                btnItem.innerHTML = `
-                    <div>
-                        <strong>${btn.icon}</strong> ${btn.text}
-                        ${btn.special ? ' <span style="color: #ff4d6d;">(مميز)</span>' : ''}
-                    </div>
-                    <div class="btn-actions">
-                        <button class="btn-edit" onclick="editButton(${index})">✏️</button>
-                        <button class="btn-delete" onclick="deleteButton(${index})">🗑️</button>
-                    </div>
-                `;
-                btnList.appendChild(btnItem);
-            });
-        }
+                // بناء الكود الجديد كاملاً
+                const newContent = generateFullHTML(brand, title, subtitle, mainBtnText, mainBtnLink, footerNote);
 
-        function addNewButton() {
-            const icon = prompt('الأيقونة (مثال: 💃):', '🎯');
-            const text = prompt('نص الزر:', 'زر جديد');
-            const link = prompt('الرابط:', MAIN_LINK);
-            
-            if (icon && text && link) {
-                currentData.buttons.push({
-                    icon: icon,
-                    text: text,
-                    link: link,
-                    special: false
+                // التحقق من وجود الملف أولاً
+                const checkResponse = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${FILE_PATH}`, {
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`
+                    }
                 });
-                renderButtonList();
-                showToast('✅ تم إضافة الزر');
-            }
-        }
 
-        function editButton(index) {
-            const btn = currentData.buttons[index];
-            const icon = prompt('الأيقونة:', btn.icon);
-            const text = prompt('نص الزر:', btn.text);
-            const link = prompt('الرابط:', btn.link);
-            
-            if (icon && text && link) {
-                currentData.buttons[index] = {
-                    icon: icon,
-                    text: text,
-                    link: link,
-                    special: btn.special
-                };
-                renderButtonList();
-                showToast('✅ تم تعديل الزر');
-            }
-        }
-
-        function deleteButton(index) {
-            if (confirm('حذف هذا الزر؟')) {
-                currentData.buttons.splice(index, 1);
-                renderButtonList();
-                showToast('✅ تم حذف الزر');
-            }
-        }
-
-        function handleFileUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const previewContainer = document.getElementById('previewContainer');
-                previewContainer.innerHTML = '';
-                
-                if (file.type.startsWith('image/')) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.style.maxWidth = '100%';
-                    img.style.maxHeight = '200px';
-                    previewContainer.appendChild(img);
-                } else if (file.type.startsWith('video/')) {
-                    const video = document.createElement('video');
-                    video.src = e.target.result;
-                    video.controls = true;
-                    video.style.maxWidth = '100%';
-                    video.style.maxHeight = '200px';
-                    previewContainer.appendChild(video);
+                let sha = null;
+                if (checkResponse.ok) {
+                    const fileData = await checkResponse.json();
+                    sha = fileData.sha;
                 }
-            };
-            reader.readAsDataURL(file);
+
+                // حفظ الملف
+                const saveResponse = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${FILE_PATH}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Update site content',
+                        content: btoa(unescape(encodeURIComponent(newContent))),
+                        sha: sha
+                    })
+                });
+
+                if (saveResponse.ok) {
+                    showToast('✅ تم الحفظ! سيتم التحديث خلال دقائق');
+                    
+                    // تحديث الموقع مباشرة
+                    document.getElementById('brandText').textContent = brand;
+                    document.getElementById('mainTitle').textContent = title;
+                    document.getElementById('mainSubtitle').textContent = subtitle;
+                    document.getElementById('mainCta').textContent = mainBtnText;
+                    document.getElementById('footerNote').textContent = footerNote;
+                } else {
+                    const error = await saveResponse.json();
+                    showToast('❌ خطأ: ' + error.message);
+                }
+            } catch (error) {
+                showToast('❌ خطأ: ' + error.message);
+            }
         }
 
-        // ===== النقرات السرية =====
-        let clickCount = 0;
-        let clickTimer = null;
+        function generateFullHTML(brand, title, subtitle, mainBtnText, mainBtnLink, footerNote) {
+            return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${title}</title>
+</head>
+<body>
+    <h1>${title}</h1>
+    <p>${subtitle}</p>
+    <p>${brand}</p>
+    <button>${mainBtnText}</button>
+    <p>${footerNote}</p>
+    <a href="${mainBtnLink}">الرابط</a>
+</body>
+</html>`;
+        }
 
-        document.getElementById('mainTitle').addEventListener('click', function() {
-            clickCount++;
-            clearTimeout(clickTimer);
-            clickTimer = setTimeout(() => {
-                clickCount = 0;
-            }, 3000);
-            
-            if (clickCount >= 5) {
-                clickCount = 0;
-                showPasswordScreen();
-            }
-        });
+        function switchTab(tab) {
+            // بسيطة حالياً
+        }
 
         function showPasswordScreen() {
             document.getElementById('passwordScreen').style.display = 'flex';
@@ -848,10 +604,32 @@
                 openAdmin();
             } else {
                 alert('❌ كلمة السر خاطئة!');
-                document.getElementById('passwordInput').value = '';
-                document.getElementById('passwordInput').focus();
             }
         }
+
+        function openAdmin() {
+            document.getElementById('adminModal').classList.add('active');
+        }
+
+        function closeAdmin() {
+            document.getElementById('adminModal').classList.remove('active');
+        }
+
+        let clickCount = 0;
+        let clickTimer = null;
+
+        document.getElementById('mainTitle').addEventListener('click', function() {
+            clickCount++;
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+                clickCount = 0;
+            }, 3000);
+            
+            if (clickCount >= 5) {
+                clickCount = 0;
+                showPasswordScreen();
+            }
+        });
 
         document.getElementById('passwordInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -859,35 +637,10 @@
             }
         });
 
-        function openAdmin() {
-            document.getElementById('adminModal').classList.add('active');
-            loadDataToForm();
-        }
-
-        function closeAdmin() {
-            document.getElementById('adminModal').classList.remove('active');
-        }
-
-        function loadDataToForm() {
-            document.getElementById('editBrand').value = currentData.brand;
-            document.getElementById('editTitle').value = currentData.title;
-            document.getElementById('editSubtitle').value = currentData.subtitle;
-            document.getElementById('editMainBtn').value = currentData.mainButtonText;
-            document.getElementById('editMainLink').value = currentData.mainButtonLink;
-            document.getElementById('editFooter').value = currentData.footerNote;
-        }
-
-        // ===== تهيئة الموقع =====
-        function initializeSite() {
-            applyChanges();
-            
-            document.getElementById('mainCta').addEventListener('click', function(e) {
-                e.preventDefault();
-                window.open(currentData.mainButtonLink, '_blank');
-            });
-        }
-
-        window.addEventListener('load', initializeSite);
+        document.getElementById('mainCta').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open(MAIN_LINK, '_blank');
+        });
     </script>
 </body>
 </html>
