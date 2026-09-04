@@ -454,11 +454,7 @@
                 <button class="close-admin" onclick="closeAdmin()">×</button>
             </div>
 
-            <div class="admin-tabs">
-                <button class="admin-tab active" onclick="switchTab('content')">📝 المحتوى</button>
-            </div>
-
-            <div class="admin-section" id="contentSection">
+            <div class="admin-section">
                 <h3>📝 تعديل المحتوى</h3>
                 <div class="form-group">
                     <label>اسم الموقع:</label>
@@ -516,10 +512,8 @@
                 const mainBtnLink = document.getElementById('editMainLink').value;
                 const footerNote = document.getElementById('editFooter').value;
 
-                // بناء الكود الجديد كاملاً
                 const newContent = generateFullHTML(brand, title, subtitle, mainBtnText, mainBtnLink, footerNote);
 
-                // التحقق من وجود الملف أولاً
                 const checkResponse = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${FILE_PATH}`, {
                     headers: {
                         'Authorization': `token ${GITHUB_TOKEN}`
@@ -532,7 +526,6 @@
                     sha = fileData.sha;
                 }
 
-                // حفظ الملف
                 const saveResponse = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${FILE_PATH}`, {
                     method: 'PUT',
                     headers: {
@@ -540,7 +533,7 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        message: 'Update site content',
+                        message: 'Update site content from admin panel',
                         content: btoa(unescape(encodeURIComponent(newContent))),
                         sha: sha
                     })
@@ -549,7 +542,6 @@
                 if (saveResponse.ok) {
                     showToast('✅ تم الحفظ! سيتم التحديث خلال دقائق');
                     
-                    // تحديث الموقع مباشرة
                     document.getElementById('brandText').textContent = brand;
                     document.getElementById('mainTitle').textContent = title;
                     document.getElementById('mainSubtitle').textContent = subtitle;
@@ -557,7 +549,7 @@
                     document.getElementById('footerNote').textContent = footerNote;
                 } else {
                     const error = await saveResponse.json();
-                    showToast('❌ خطأ: ' + error.message);
+                    showToast('❌ خطأ: ' + (error.message || 'فشل الحفظ'));
                 }
             } catch (error) {
                 showToast('❌ خطأ: ' + error.message);
@@ -571,20 +563,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${title}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; overflow: hidden; height: 100vh; width: 100vw; background-color: #1a0a0a; color: #fff; }
+        .container { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; padding: 20px; }
+        .brand { font-size: 1.7rem; font-weight: 800; background: linear-gradient(45deg, #ffb6c1, #ff4d6d, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .title { font-size: 5rem; font-weight: 900; background: linear-gradient(135deg, #fff0f0, #ffccd5, #e0b0ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { font-size: 1.8rem; color: rgba(255, 230, 240, 0.95); }
+        .cta-btn { display: inline-block; padding: 20px 70px; font-size: 2rem; font-weight: 800; color: #fff; background: linear-gradient(45deg, #ff1a5c, #b300ff); border: none; border-radius: 60px; cursor: pointer; text-decoration: none; }
+        .footer-note { position: absolute; bottom: 20px; font-size: 0.9rem; color: #ffc0d0; }
+    </style>
 </head>
 <body>
-    <h1>${title}</h1>
-    <p>${subtitle}</p>
-    <p>${brand}</p>
-    <button>${mainBtnText}</button>
-    <p>${footerNote}</p>
-    <a href="${mainBtnLink}">الرابط</a>
+    <div class="container">
+        <div class="brand">${brand}</div>
+        <h1 class="title">${title}</h1>
+        <p class="subtitle">${subtitle}</p>
+        <a href="${mainBtnLink}" class="cta-btn">${mainBtnText}</a>
+    </div>
+    <div class="footer-note">${footerNote}</div>
 </body>
 </html>`;
-        }
-
-        function switchTab(tab) {
-            // بسيطة حالياً
         }
 
         function showPasswordScreen() {
