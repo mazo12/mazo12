@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>✨ ليالي الرقص | تعارف وتعليم ✨</title>
     <style>
+        /* نفس الستايل السابق */
         * {
             margin: 0;
             padding: 0;
@@ -20,7 +21,6 @@
             color: #fff;
         }
 
-        /* ===== الخلفية ===== */
         .video-background {
             position: fixed;
             top: 0;
@@ -41,7 +41,6 @@
             left: 0;
         }
 
-        /* ===== طبقة تظليل ===== */
         .overlay {
             position: fixed;
             top: 0;
@@ -54,7 +53,6 @@
             z-index: -1;
         }
 
-        /* ===== حاوية رئيسية ===== */
         .container {
             display: flex;
             flex-direction: column;
@@ -67,7 +65,6 @@
             z-index: 2;
         }
 
-        /* ===== شريط علوي ===== */
         .top-bar {
             position: absolute;
             top: 20px;
@@ -108,7 +105,6 @@
             animation: livePulse 1.5s infinite;
         }
 
-        /* ===== العنوان ===== */
         .title {
             font-size: 5rem;
             font-weight: 900;
@@ -135,7 +131,6 @@
             backdrop-filter: blur(2px);
         }
 
-        /* ===== زر أساسي ===== */
         .cta-btn {
             display: inline-block;
             padding: 20px 70px;
@@ -160,7 +155,6 @@
             box-shadow: 0 25px 60px #ff2b7a;
         }
 
-        /* ===== الأزرار ===== */
         .teaser-banner {
             display: flex;
             flex-wrap: wrap;
@@ -211,7 +205,6 @@
             color: #ffc0d0;
         }
 
-        /* ===== لوحة التحكم ===== */
         .admin-modal {
             display: none;
             position: fixed;
@@ -462,7 +455,6 @@
             margin: 5px;
         }
 
-        /* إشعار صغير */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -556,7 +548,6 @@
                 <button class="admin-tab active" onclick="switchTab('content')">📝 المحتوى</button>
                 <button class="admin-tab" onclick="switchTab('buttons')">🔘 الأزرار</button>
                 <button class="admin-tab" onclick="switchTab('background')">🎨 الخلفية</button>
-                <button class="admin-tab" onclick="switchTab('stats')">📊 الإحصائيات</button>
             </div>
 
             <!-- قسم المحتوى -->
@@ -564,19 +555,19 @@
                 <h3>📝 تعديل المحتوى</h3>
                 <div class="form-group">
                     <label>اسم الموقع:</label>
-                    <input type="text" id="editBrand" oninput="updateBrand(this.value)">
+                    <input type="text" id="editBrand" placeholder="💃 رقص وتعارف">
                 </div>
                 <div class="form-group">
                     <label>العنوان الرئيسي:</label>
-                    <input type="text" id="editTitle" oninput="updateTitle(this.value)">
+                    <input type="text" id="editTitle" placeholder="ليالي الرقص">
                 </div>
                 <div class="form-group">
                     <label>الوصف:</label>
-                    <textarea id="editSubtitle" oninput="updateSubtitle(this.value)" rows="3"></textarea>
+                    <textarea id="editSubtitle" rows="3" placeholder="🔥 تعارف · دروس خاصة · إيقاع لا يتوقف 🔥"></textarea>
                 </div>
                 <div class="form-group">
                     <label>نص الزر الرئيسي:</label>
-                    <input type="text" id="editMainBtn" oninput="updateMainBtn(this.value)">
+                    <input type="text" id="editMainBtn" placeholder="⬇ انضم للعالم السري">
                 </div>
                 <div class="form-group">
                     <label>رابط الزر الرئيسي:</label>
@@ -584,9 +575,9 @@
                 </div>
                 <div class="form-group">
                     <label>النص السفلي:</label>
-                    <input type="text" id="editFooter" oninput="updateFooter(this.value)">
+                    <input type="text" id="editFooter" placeholder="اضغط أي إعلان للانضمام الفوري">
                 </div>
-                <button class="admin-btn" onclick="saveContentChanges()">💾 حفظ التغييرات</button>
+                <button class="admin-btn" onclick="saveToGitHub()">💾 حفظ ونشر التغييرات</button>
             </div>
 
             <!-- قسم الأزرار -->
@@ -604,48 +595,27 @@
                     <input type="file" id="fileInput" accept="video/*,image/*" style="display: none;" onchange="handleFileUpload(event)">
                 </div>
                 <div class="preview-container" id="previewContainer"></div>
-                <button class="admin-btn" onclick="applyUploadedBackground()">✅ تطبيق الخلفية</button>
-                <button class="admin-btn" onclick="resetBackground()">↩️ استعادة الافتراضية</button>
-            </div>
-
-            <!-- قسم الإحصائيات -->
-            <div class="admin-section" id="statsSection" style="display: none;">
-                <h3>📊 الإحصائيات</h3>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number" id="totalVisits">0</div>
-                        <div class="stat-label">إجمالي الزيارات</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="uniqueVisitors">0</div>
-                        <div class="stat-label">زوار فريدون</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="todayVisits">0</div>
-                        <div class="stat-label">زيارات اليوم</div>
-                    </div>
-                </div>
-                <div style="margin-top: 15px; text-align: center;">
-                    <button class="admin-btn" onclick="exportData()">📤 تصدير البيانات</button>
-                    <button class="admin-btn" onclick="importData()">📥 استيراد البيانات</button>
-                </div>
+                <button class="admin-btn" onclick="saveBackgroundToGitHub()">✅ حفظ ونشر الخلفية</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ===== البيانات والإعدادات =====
-        const ADMIN_PASSWORD = "admin123";
-        const MAIN_LINK = "https://enjoysex.top/lp/00004PPC";
+        // ===== إعدادات GitHub =====
+        const GITHUB_TOKEN = "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"; // ضع توكن GitHub هنا
+        const GITHUB_USERNAME = "mazo12"; // ضع اسم المستخدم هنا
+        const GITHUB_REPO = "mazo12"; // ضع اسم المستودع هنا
+        const FILE_PATH = "index.html"; // مسار الملف
         
-        let siteData = {
+        const ADMIN_PASSWORD = "mazo";
+        const MAIN_LINK = "https://yaya-gamma.vercel.app/";
+        
+        let currentData = {
             brand: "💃 رقص وتعارف",
-            mainButton: {
-                text: "⬇ انضم للعالم السري",
-                link: MAIN_LINK
-            },
             title: "ليالي الرقص",
             subtitle: "🔥 تعارف · دروس خاصة · إيقاع لا يتوقف 🔥",
+            mainButtonText: "⬇ انضم للعالم السري",
+            mainButtonLink: MAIN_LINK,
             footerNote: "اضغط أي إعلان للانضمام الفوري",
             buttons: [
                 { icon: "💋", text: "راقصات مباشر", link: MAIN_LINK, special: true },
@@ -655,79 +625,193 @@
             ],
             background: {
                 type: "video",
-                url: "https://www.w3schools.com/howto/rain.mp4",
-                dataUrl: null
+                url: "https://www.w3schools.com/howto/rain.mp4"
             }
         };
 
-        let uploadedFile = null;
+        // ===== دالة الحفظ إلى GitHub =====
+        async function saveToGitHub() {
+            try {
+                // تحديث البيانات من الحقول
+                currentData.brand = document.getElementById('editBrand').value || currentData.brand;
+                currentData.title = document.getElementById('editTitle').value || currentData.title;
+                currentData.subtitle = document.getElementById('editSubtitle').value || currentData.subtitle;
+                currentData.mainButtonText = document.getElementById('editMainBtn').value || currentData.mainButtonText;
+                currentData.mainButtonLink = document.getElementById('editMainLink').value || currentData.mainButtonLink;
+                currentData.footerNote = document.getElementById('editFooter').value || currentData.footerNote;
 
-        // ===== نظام الإشعارات =====
+                // الحصول على الملف الحالي من GitHub
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${FILE_PATH}`, {
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`
+                    }
+                });
+                
+                const fileData = await response.json();
+                const currentContent = atob(fileData.content);
+                
+                // تعديل المحتوى
+                let newContent = currentContent;
+                
+                // استبدال القيم في الكود
+                newContent = newContent.replace(/brand: "[^"]*"/, `brand: "${currentData.brand}"`);
+                newContent = newContent.replace(/title: "[^"]*"/, `title: "${currentData.title}"`);
+                newContent = newContent.replace(/subtitle: "[^"]*"/, `subtitle: "${currentData.subtitle}"`);
+                newContent = newContent.replace(/mainButtonText: "[^"]*"/, `mainButtonText: "${currentData.mainButtonText}"`);
+                newContent = newContent.replace(/mainButtonLink: "[^"]*"/, `mainButtonLink: "${currentData.mainButtonLink}"`);
+                newContent = newContent.replace(/footerNote: "[^"]*"/, `footerNote: "${currentData.footerNote}"`);
+
+                // تحديث الملف في GitHub
+                const updateResponse = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${FILE_PATH}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Update site content from admin panel',
+                        content: btoa(unescape(encodeURIComponent(newContent))),
+                        sha: fileData.sha
+                    })
+                });
+
+                if (updateResponse.ok) {
+                    showToast('✅ تم حفظ التغييرات! سيتم النشر خلال دقائق');
+                    applyChanges();
+                } else {
+                    showToast('❌ خطأ في الحفظ');
+                }
+            } catch (error) {
+                showToast('❌ خطأ: ' + error.message);
+            }
+        }
+
+        // ===== تطبيق التغييرات محلياً =====
+        function applyChanges() {
+            document.getElementById('brandText').textContent = currentData.brand;
+            document.getElementById('mainTitle').textContent = currentData.title;
+            document.getElementById('mainSubtitle').textContent = currentData.subtitle;
+            document.getElementById('mainCta').textContent = currentData.mainButtonText;
+            document.getElementById('footerNote').textContent = currentData.footerNote;
+        }
+
+        // ===== باقي الدوال =====
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.textContent = message;
             toast.style.display = 'block';
             setTimeout(() => {
                 toast.style.display = 'none';
-            }, 2000);
+            }, 3000);
         }
 
-        // ===== نظام الزيارات =====
-        function getDeviceId() {
-            let deviceId = localStorage.getItem('deviceId');
-            if (!deviceId) {
-                deviceId = 'device_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                localStorage.setItem('deviceId', deviceId);
-            }
-            return deviceId;
-        }
-
-        function trackVisit() {
-            const deviceId = getDeviceId();
-            const now = Date.now();
-            const FIVE_HOURS = 5 * 60 * 60 * 1000;
+        function switchTab(tab) {
+            document.getElementById('contentSection').style.display = 'none';
+            document.getElementById('buttonsSection').style.display = 'none';
+            document.getElementById('backgroundSection').style.display = 'none';
             
-            let visits = JSON.parse(localStorage.getItem('visits') || '{"total": 0, "uniqueDevices": {}, "lastVisitTimes": {}}');
-            
-            const lastVisit = visits.lastVisitTimes[deviceId] || 0;
-            
-            if (now - lastVisit >= FIVE_HOURS) {
-                visits.total++;
-                
-                if (!visits.uniqueDevices[deviceId]) {
-                    visits.uniqueDevices[deviceId] = {
-                        firstVisit: now,
-                        visitCount: 0
-                    };
-                }
-                
-                visits.uniqueDevices[deviceId].visitCount++;
-                visits.uniqueDevices[deviceId].lastVisit = now;
-                visits.lastVisitTimes[deviceId] = now;
-                
-                localStorage.setItem('visits', JSON.stringify(visits));
+            if (tab === 'content') {
+                document.getElementById('contentSection').style.display = 'block';
+            } else if (tab === 'buttons') {
+                document.getElementById('buttonsSection').style.display = 'block';
+                renderButtonList();
+            } else if (tab === 'background') {
+                document.getElementById('backgroundSection').style.display = 'block';
             }
             
-            updateStats();
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
         }
 
-        function updateStats() {
-            const visits = JSON.parse(localStorage.getItem('visits') || '{"total": 0, "uniqueDevices": {}, "lastVisitTimes": {}}');
+        function renderButtonList() {
+            const btnList = document.getElementById('btnList');
+            btnList.innerHTML = '';
             
-            const totalVisits = visits.total || 0;
-            const uniqueVisitors = Object.keys(visits.uniqueDevices || {}).length;
-            
-            const today = new Date().toDateString();
-            let todayVisits = 0;
-            Object.values(visits.uniqueDevices || {}).forEach(device => {
-                if (device.lastVisit && new Date(device.lastVisit).toDateString() === today) {
-                    todayVisits++;
-                }
+            currentData.buttons.forEach((btn, index) => {
+                const btnItem = document.createElement('div');
+                btnItem.className = 'btn-item';
+                btnItem.innerHTML = `
+                    <div>
+                        <strong>${btn.icon}</strong> ${btn.text}
+                        ${btn.special ? ' <span style="color: #ff4d6d;">(مميز)</span>' : ''}
+                    </div>
+                    <div class="btn-actions">
+                        <button class="btn-edit" onclick="editButton(${index})">✏️</button>
+                        <button class="btn-delete" onclick="deleteButton(${index})">🗑️</button>
+                    </div>
+                `;
+                btnList.appendChild(btnItem);
             });
+        }
+
+        function addNewButton() {
+            const icon = prompt('الأيقونة (مثال: 💃):', '🎯');
+            const text = prompt('نص الزر:', 'زر جديد');
+            const link = prompt('الرابط:', MAIN_LINK);
             
-            document.getElementById('totalVisits').textContent = totalVisits;
-            document.getElementById('uniqueVisitors').textContent = uniqueVisitors;
-            document.getElementById('todayVisits').textContent = todayVisits;
+            if (icon && text && link) {
+                currentData.buttons.push({
+                    icon: icon,
+                    text: text,
+                    link: link,
+                    special: false
+                });
+                renderButtonList();
+                showToast('✅ تم إضافة الزر');
+            }
+        }
+
+        function editButton(index) {
+            const btn = currentData.buttons[index];
+            const icon = prompt('الأيقونة:', btn.icon);
+            const text = prompt('نص الزر:', btn.text);
+            const link = prompt('الرابط:', btn.link);
+            
+            if (icon && text && link) {
+                currentData.buttons[index] = {
+                    icon: icon,
+                    text: text,
+                    link: link,
+                    special: btn.special
+                };
+                renderButtonList();
+                showToast('✅ تم تعديل الزر');
+            }
+        }
+
+        function deleteButton(index) {
+            if (confirm('حذف هذا الزر؟')) {
+                currentData.buttons.splice(index, 1);
+                renderButtonList();
+                showToast('✅ تم حذف الزر');
+            }
+        }
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewContainer = document.getElementById('previewContainer');
+                previewContainer.innerHTML = '';
+                
+                if (file.type.startsWith('image/')) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxWidth = '100%';
+                    img.style.maxHeight = '200px';
+                    previewContainer.appendChild(img);
+                } else if (file.type.startsWith('video/')) {
+                    const video = document.createElement('video');
+                    video.src = e.target.result;
+                    video.controls = true;
+                    video.style.maxWidth = '100%';
+                    video.style.maxHeight = '200px';
+                    previewContainer.appendChild(video);
+                }
+            };
+            reader.readAsDataURL(file);
         }
 
         // ===== النقرات السرية =====
@@ -775,338 +859,32 @@
             }
         });
 
-        // ===== لوحة التحكم =====
         function openAdmin() {
             document.getElementById('adminModal').classList.add('active');
-            loadAdminData();
-            updateStats();
+            loadDataToForm();
         }
 
         function closeAdmin() {
             document.getElementById('adminModal').classList.remove('active');
         }
 
-        function switchTab(tab) {
-            document.getElementById('contentSection').style.display = 'none';
-            document.getElementById('buttonsSection').style.display = 'none';
-            document.getElementById('backgroundSection').style.display = 'none';
-            document.getElementById('statsSection').style.display = 'none';
-            
-            if (tab === 'content') {
-                document.getElementById('contentSection').style.display = 'block';
-            } else if (tab === 'buttons') {
-                document.getElementById('buttonsSection').style.display = 'block';
-                renderButtonList();
-            } else if (tab === 'background') {
-                document.getElementById('backgroundSection').style.display = 'block';
-            } else if (tab === 'stats') {
-                document.getElementById('statsSection').style.display = 'block';
-                updateStats();
-            }
-            
-            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
+        function loadDataToForm() {
+            document.getElementById('editBrand').value = currentData.brand;
+            document.getElementById('editTitle').value = currentData.title;
+            document.getElementById('editSubtitle').value = currentData.subtitle;
+            document.getElementById('editMainBtn').value = currentData.mainButtonText;
+            document.getElementById('editMainLink').value = currentData.mainButtonLink;
+            document.getElementById('editFooter').value = currentData.footerNote;
         }
 
-        function loadAdminData() {
-            const savedData = localStorage.getItem('siteData');
-            if (savedData) {
-                siteData = JSON.parse(savedData);
-            }
-            
-            // تحديث حقول الإدخال
-            document.getElementById('editBrand').value = siteData.brand;
-            document.getElementById('editTitle').value = siteData.title;
-            document.getElementById('editSubtitle').value = siteData.subtitle;
-            document.getElementById('editMainBtn').value = siteData.mainButton.text;
-            document.getElementById('editMainLink').value = siteData.mainButton.link;
-            document.getElementById('editFooter').value = siteData.footerNote;
-            
-            // تحديث الموقع
-            applySiteData();
-        }
-
-        // ===== تحديث فوري =====
-        function updateBrand(value) {
-            siteData.brand = value;
-            document.getElementById('brandText').textContent = value;
-        }
-
-        function updateTitle(value) {
-            siteData.title = value;
-            document.getElementById('mainTitle').textContent = value;
-        }
-
-        function updateSubtitle(value) {
-            siteData.subtitle = value;
-            document.getElementById('mainSubtitle').textContent = value;
-        }
-
-        function updateMainBtn(value) {
-            siteData.mainButton.text = value;
-            document.getElementById('mainCta').textContent = value;
-        }
-
-        function updateFooter(value) {
-            siteData.footerNote = value;
-            document.getElementById('footerNote').textContent = value;
-        }
-
-        function saveContentChanges() {
-            siteData.mainButton.link = document.getElementById('editMainLink').value || MAIN_LINK;
-            localStorage.setItem('siteData', JSON.stringify(siteData));
-            showToast('✅ تم حفظ التغييرات');
-        }
-
-        // ===== إدارة الأزرار =====
-        function renderButtonList() {
-            const btnList = document.getElementById('btnList');
-            btnList.innerHTML = '';
-            
-            siteData.buttons.forEach((btn, index) => {
-                const btnItem = document.createElement('div');
-                btnItem.className = 'btn-item';
-                btnItem.innerHTML = `
-                    <div>
-                        <strong>${btn.icon}</strong> ${btn.text}
-                        ${btn.special ? ' <span style="color: #ff4d6d;">(مميز)</span>' : ''}
-                    </div>
-                    <div class="btn-actions">
-                        <button class="btn-edit" onclick="editButton(${index})">✏️</button>
-                        <button class="btn-delete" onclick="deleteButton(${index})">🗑️</button>
-                    </div>
-                `;
-                btnList.appendChild(btnItem);
-            });
-        }
-
-        function addNewButton() {
-            const icon = prompt('الأيقونة (مثال: 💃):', '🎯');
-            const text = prompt('نص الزر:', 'زر جديد');
-            const link = prompt('الرابط:', MAIN_LINK);
-            
-            if (icon && text && link) {
-                siteData.buttons.push({
-                    icon: icon,
-                    text: text,
-                    link: link,
-                    special: false
-                });
-                renderButtonList();
-                applySiteData();
-                localStorage.setItem('siteData', JSON.stringify(siteData));
-                showToast('✅ تم إضافة الزر');
-            }
-        }
-
-        function editButton(index) {
-            const btn = siteData.buttons[index];
-            const icon = prompt('الأيقونة:', btn.icon);
-            const text = prompt('نص الزر:', btn.text);
-            const link = prompt('الرابط:', btn.link);
-            
-            if (icon && text && link) {
-                siteData.buttons[index] = {
-                    icon: icon,
-                    text: text,
-                    link: link,
-                    special: btn.special
-                };
-                renderButtonList();
-                applySiteData();
-                localStorage.setItem('siteData', JSON.stringify(siteData));
-                showToast('✅ تم تعديل الزر');
-            }
-        }
-
-        function deleteButton(index) {
-            if (confirm('حذف هذا الزر؟')) {
-                siteData.buttons.splice(index, 1);
-                renderButtonList();
-                applySiteData();
-                localStorage.setItem('siteData', JSON.stringify(siteData));
-                showToast('✅ تم حذف الزر');
-            }
-        }
-
-        // ===== رفع الملفات =====
-        function handleFileUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                uploadedFile = {
-                    dataUrl: e.target.result,
-                    type: file.type,
-                    name: file.name
-                };
-                
-                const previewContainer = document.getElementById('previewContainer');
-                previewContainer.innerHTML = '';
-                
-                if (file.type.startsWith('image/')) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.style.maxWidth = '100%';
-                    img.style.maxHeight = '200px';
-                    previewContainer.appendChild(img);
-                } else if (file.type.startsWith('video/')) {
-                    const video = document.createElement('video');
-                    video.src = e.target.result;
-                    video.controls = true;
-                    video.style.maxWidth = '100%';
-                    video.style.maxHeight = '200px';
-                    previewContainer.appendChild(video);
-                }
-                
-                showToast('✅ تم تحميل الملف');
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function applyUploadedBackground() {
-            if (!uploadedFile) {
-                showToast('⚠️ اختر ملفاً أولاً');
-                return;
-            }
-            
-            siteData.background = {
-                type: uploadedFile.type.startsWith('image/') ? 'image' : 'video',
-                url: uploadedFile.dataUrl,
-                dataUrl: uploadedFile.dataUrl
-            };
-            
-            applyBackground();
-            localStorage.setItem('siteData', JSON.stringify(siteData));
-            showToast('✅ تم تطبيق الخلفية');
-        }
-
-        function resetBackground() {
-            siteData.background = {
-                type: 'video',
-                url: 'https://www.w3schools.com/howto/rain.mp4',
-                dataUrl: null
-            };
-            uploadedFile = null;
-            document.getElementById('previewContainer').innerHTML = '';
-            applyBackground();
-            localStorage.setItem('siteData', JSON.stringify(siteData));
-            showToast('✅ تم استعادة الخلفية');
-        }
-
-        function applyBackground() {
-            const bgContainer = document.getElementById('videoBackground');
-            bgContainer.innerHTML = '';
-            
-            if (siteData.background.type === 'video') {
-                const video = document.createElement('video');
-                video.autoplay = true;
-                video.muted = true;
-                video.loop = true;
-                video.playsInline = true;
-                video.src = siteData.background.url;
-                video.style.width = '100%';
-                video.style.height = '100%';
-                video.style.objectFit = 'cover';
-                bgContainer.appendChild(video);
-            } else {
-                const img = document.createElement('img');
-                img.src = siteData.background.url;
-                img.style.width = '100%';
-                img.style.height = '100%';
-                img.style.objectFit = 'cover';
-                bgContainer.appendChild(img);
-            }
-        }
-
-        // ===== تصدير واستيراد =====
-        function exportData() {
-            const dataStr = JSON.stringify(siteData, null, 2);
-            const blob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'site-data.json';
-            a.click();
-            URL.revokeObjectURL(url);
-            showToast('✅ تم تصدير البيانات');
-        }
-
-        function importData() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json';
-            input.onchange = function(e) {
-                const file = e.target.files[0];
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    try {
-                        siteData = JSON.parse(event.target.result);
-                        localStorage.setItem('siteData', JSON.stringify(siteData));
-                        loadAdminData();
-                        applySiteData();
-                        showToast('✅ تم استيراد البيانات');
-                    } catch (error) {
-                        showToast('❌ خطأ في الاستيراد');
-                    }
-                };
-                reader.readAsText(file);
-            };
-            input.click();
-        }
-
-        // ===== تطبيق البيانات =====
-        function applySiteData() {
-            applyBackground();
-            
-            document.getElementById('brandText').textContent = siteData.brand;
-            document.getElementById('mainTitle').textContent = siteData.title;
-            document.getElementById('mainSubtitle').textContent = siteData.subtitle;
-            document.getElementById('footerNote').textContent = siteData.footerNote;
-            document.getElementById('mainCta').textContent = siteData.mainButton.text;
-            
-            const teaserBanner = document.getElementById('teaserBanner');
-            teaserBanner.innerHTML = '';
-            
-            siteData.buttons.forEach(btn => {
-                const adCard = document.createElement('div');
-                adCard.className = 'ad-card' + (btn.special ? ' special' : '');
-                adCard.innerHTML = `
-                    <span class="ad-icon">${btn.icon}</span>
-                    <span class="ad-text">${btn.text}</span>
-                `;
-                adCard.addEventListener('click', function() {
-                    window.open(btn.link, '_blank');
-                });
-                teaserBanner.appendChild(adCard);
-            });
-        }
-
-        // ===== التهيئة =====
+        // ===== تهيئة الموقع =====
         function initializeSite() {
-            const savedData = localStorage.getItem('siteData');
-            if (savedData) {
-                siteData = JSON.parse(savedData);
-            }
-            
-            applySiteData();
-            trackVisit();
+            applyChanges();
             
             document.getElementById('mainCta').addEventListener('click', function(e) {
                 e.preventDefault();
-                window.open(siteData.mainButton.link, '_blank');
+                window.open(currentData.mainButtonLink, '_blank');
             });
-            
-            const mainBtn = document.getElementById('mainCta');
-            mainBtn.addEventListener('mouseenter', () => {
-                mainBtn.textContent = '🚀 ابدأ الآن';
-            });
-            mainBtn.addEventListener('mouseleave', () => {
-                mainBtn.textContent = siteData.mainButton.text;
-            });
-            
-            setInterval(updateStats, 300000);
         }
 
         window.addEventListener('load', initializeSite);
